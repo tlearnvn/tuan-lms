@@ -79,6 +79,8 @@ Hệ thống tự nhận đường dẫn, không cần cấu hình thêm.
    https://ten-mien-cua-ban/install.php
    ```
 
+   ![Trình cài đặt – bước 1](images/05-cai-dat-buoc-1.jpg)
+
 2. **Bước 1 – Kiểm tra máy chủ.** Màn hình liệt kê các yêu cầu.
    - Dấu ✓ xanh: đạt.
    - Dấu ✕ đỏ: bắt buộc phải khắc phục (liên hệ nhà cung cấp hosting để bật phần mở rộng còn thiếu).
@@ -87,9 +89,13 @@ Hệ thống tự nhận đường dẫn, không cần cấu hình thêm.
 3. **Bước 2 – Cơ sở dữ liệu & quản trị viên.** Điền 4 thông tin CSDL ở mục 2,
    tên website, tên đơn vị và tài khoản quản trị viên.
 
+   ![Trình cài đặt – bước 2](images/06-cai-dat-buoc-2.jpg)
+
 4. Bấm **⚙️ Bắt đầu cài đặt**. Hệ thống sẽ tạo hơn 25 bảng dữ liệu và tệp `config.php`.
 
 5. **Bước 3 – Hoàn tất.** Đăng nhập bằng tài khoản quản trị vừa tạo.
+
+   ![Cài đặt hoàn tất](images/07-cai-dat-hoan-tat.jpg)
 
 ---
 
@@ -124,6 +130,8 @@ Nếu tải tệp lớn mà báo lỗi *"max_allowed_packet"*, vào
 
 ### 5.4. Tuỳ biến thương hiệu nhà trường
 
+![Tuỳ biến thương hiệu](images/14-admin-thuong-hieu.jpg)
+
 **Quản trị → Cấu hình chung**:
 
 - Tên website, khẩu hiệu, tên đơn vị.
@@ -133,6 +141,8 @@ Nếu tải tệp lớn mà báo lỗi *"max_allowed_packet"*, vào
 
 ### 5.5. Bật/tắt đăng ký tài khoản
 
+![Cấu hình đăng ký tài khoản](images/13-admin-dang-ky.jpg)
+
 **Quản trị → Cấu hình chung → Đăng ký tài khoản**:
 
 - *Cho phép học sinh tự đăng ký* — bật/tắt.
@@ -141,6 +151,8 @@ Nếu tải tệp lớn mà báo lỗi *"max_allowed_packet"*, vào
   cho tới khi quản trị viên xác nhận tại **Quản trị → Người dùng**.
 
 ### 5.6. Cấu hình AI chấm bài (tuỳ chọn)
+
+![Cấu hình trợ lý AI](images/17-admin-ai.jpg)
 
 **Quản trị → Trợ lý AI chấm bài**:
 
@@ -168,9 +180,12 @@ Mặc định đã bật. Trong **Quản trị → Cấu hình chung → Công t
 
 - Bật/tắt MathJax.
 - Cho phép hay không cú pháp `$...$` (tắt nếu nội dung có nhiều ký hiệu tiền tệ).
-- Đổi địa chỉ thư viện MathJax — **nếu máy chủ không ra được Internet**, hãy tải MathJax về
-  (thư mục `assets/js/mathjax/`) rồi điền đường dẫn nội bộ, ví dụ
-  `assets/js/mathjax/tex-mml-chtml.js`.
+- Đổi địa chỉ thư viện MathJax. **Mặc định hệ thống dùng bản MathJax cài kèm trong mã nguồn**
+  (`assets/js/mathjax/tex-mml-chtml.js`) nên công thức hiển thị được cả khi máy chủ hoặc học sinh
+  không truy cập được Internet. Muốn dùng bản đầy đủ trên CDN thì điền
+  `https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js`.
+
+![Cấu hình công thức toán](images/16-admin-cong-thuc.jpg)
 
 ---
 
@@ -208,6 +223,15 @@ thông tin trong `config.php`.
 1. Sao lưu cơ sở dữ liệu (mục 6).
 2. Tải đè các tệp mới, **giữ nguyên `config.php`**.
 3. Truy cập lại trang chủ — hệ thống tự bổ sung bảng/cột còn thiếu, **không mất dữ liệu**.
+
+---
+
+## 9. Bước tiếp theo
+
+Sau khi cài đặt xong, mời đọc 👉 **[Hướng dẫn sử dụng đầy đủ kèm ảnh minh hoạ](HUONG-DAN-SU-DUNG.md)**
+để tạo khoá học, soạn bài có công thức toán, giao bài tập và chấm bài bằng AI.
+
+Lịch sử các phiên bản: [CHANGELOG.md](../CHANGELOG.md)
 
 ---
 

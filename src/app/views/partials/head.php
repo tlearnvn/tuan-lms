@@ -38,7 +38,11 @@ $shade = function ($h, $pct) use ($hex) {
 })();
 </script>
 <?php if (Settings::bool('enable_math', true)):
-    $dollar = Settings::bool('math_dollar', true); ?>
+    $dollar = Settings::bool('math_dollar', true);
+    $mathUrl = trim((string)Settings::get('mathjax_url', 'assets/js/mathjax/tex-mml-chtml.js'));
+    if ($mathUrl !== '' && !preg_match('#^(https?:)?//#i', $mathUrl)) {
+        $mathUrl = base_url() . ltrim($mathUrl, '/');
+    } ?>
 <script>
 /* Cấu hình MathJax: hiển thị công thức LaTeX trong bài giảng, học liệu và bài tập */
 window.MathJax = {
@@ -62,7 +66,7 @@ window.MathJax = {
     }
   }
 };
-window.LMS_MATHJAX_URL = <?= json_encode(Settings::get('mathjax_url', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js')) ?>;
+window.LMS_MATHJAX_URL = <?= json_encode($mathUrl) ?>;
 </script>
-<script async id="MathJax-script" src="<?= e(Settings::get('mathjax_url', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js')) ?>"></script>
+<script async id="MathJax-script" src="<?= e($mathUrl) ?>"></script>
 <?php endif; ?>

@@ -3,7 +3,7 @@
  * Khởi động ứng dụng: nạp cấu hình, kết nối MySQL, thiết lập phiên và múi giờ Việt Nam.
  */
 
-define('LMS_VERSION', '1.0.0');
+define('LMS_VERSION', '1.1.0');
 define('LMS_ROOT', dirname(__DIR__));
 define('LMS_APP', __DIR__);
 

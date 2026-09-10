@@ -501,7 +501,7 @@ function lms_default_settings()
         // Công thức toán & trình soạn thảo
         'enable_math'          => '1',      // bật LaTeX/MathJax trong bài giảng, học liệu, bài tập
         'math_dollar'          => '1',      // cho phép dùng $...$ ngoài \\( ... \\)
-        'mathjax_url'          => 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+        'mathjax_url'          => 'assets/js/mathjax/tex-mml-chtml.js',  // bản cài kèm, không cần Internet
         'editor_enabled'       => '1',      // thanh công cụ soạn thảo (chèn ảnh, công thức, bảng...)
 
         // Khác

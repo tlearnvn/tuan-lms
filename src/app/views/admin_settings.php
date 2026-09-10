@@ -210,7 +210,9 @@
             <div class="form-group">
                 <label>Địa chỉ thư viện MathJax</label>
                 <input type="url" name="mathjax_url" value="<?= e(Settings::get('mathjax_url')) ?>">
-                <div class="form-hint">Có thể tải MathJax về hosting rồi trỏ về đường dẫn nội bộ nếu máy chủ không ra được Internet.</div>
+                <div class="form-hint">Mặc định dùng bản MathJax <b>cài kèm trong mã nguồn</b> nên chạy được cả khi không có Internet.
+                    Muốn dùng bản đầy đủ trên CDN, điền:
+                    <code>https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js</code></div>
             </div>
             <div class="alert alert-info"><span>💡</span><div>
                 Ví dụ gõ trong bài giảng: <code>\\(x^2+y^2=z^2\\)</code> hoặc <code>$$\\int_a^b f(x)dx$$</code>.
