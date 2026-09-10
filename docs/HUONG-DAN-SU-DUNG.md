@@ -16,6 +16,7 @@ Tài liệu hướng dẫn đầy đủ, kèm ảnh minh hoạ cho **quản tr�
   - [4. Tuỳ biến thương hiệu nhà trường](#4-tuỳ-biến-thương-hiệu-nhà-trường)
   - [5. Phiên làm việc — chống bị đăng xuất khi làm bài](#5-phiên-làm-việc--chống-bị-đăng-xuất-khi-làm-bài)
   - [6. Công thức toán và trình soạn thảo](#6-công-thức-toán-và-trình-soạn-thảo)
+  - [6b. Xem trước tệp học liệu](#6b-xem-trước-tệp-học-liệu)
   - [7. Cấu hình trợ lý AI chấm bài](#7-cấu-hình-trợ-lý-ai-chấm-bài)
   - [8. Danh mục khoá học](#8-danh-mục-khoá-học)
   - [9. Kho dữ liệu](#9-kho-dữ-liệu)
@@ -172,6 +173,20 @@ Khối **🖼️ Logo & hình ảnh** ngay bên cạnh cho phép tải lên **lo
 - **Hiện thanh công cụ soạn thảo** — nút chèn ảnh, bảng, video và mẫu công thức.
 - **Địa chỉ thư viện MathJax** — mặc định dùng bản **cài kèm trong mã nguồn**
   (`assets/js/mathjax/tex-mml-chtml.js`) nên chạy được cả khi máy chủ không có Internet.
+
+### 6b. Xem trước tệp học liệu
+
+`Quản trị → Cấu hình chung` → khối **👁️ Xem trước tệp học liệu**
+
+- **Mở tệp đính kèm ngay trên web** — bật (mặc định) thì mọi tệp Word, Excel, PowerPoint,
+  OpenDocument, PDF, ảnh, video, âm thanh, văn bản, mã nguồn và tệp nén đều xem được ngay,
+  không cần tải về. Tắt thì hệ thống chỉ hiện nút tải về như trước.
+- **Chỉ xem trước tệp nhỏ hơn (MB)** — mặc định `25`. Chỉ áp dụng cho các định dạng cần
+  máy chủ bóc tách nội dung (Word, Excel, PowerPoint, văn bản, tệp nén); ảnh, PDF, video
+  và âm thanh do trình duyệt phát trực tiếp nên không bị giới hạn.
+
+> 💡 Toàn bộ việc đọc tệp do PHP tự làm, **không gửi tệp ra dịch vụ bên ngoài** —
+> học liệu của nhà trường không rời khỏi máy chủ.
 
 ### 7. Cấu hình trợ lý AI chấm bài
 
@@ -437,6 +452,15 @@ Danh sách toàn bộ bài cần chấm của mọi lớp:
 
 ![Cần chấm bài](images/49-gv-can-cham-bai.jpg)
 
+#### Đọc bài nộp ngay trên trang chấm
+
+Bài nộp dạng **Word, PDF, ảnh, âm thanh, video, bảng tính hay văn bản** đều hiện thẳng
+dưới thông tin tệp — thầy cô chấm mà không cần tải từng bài về máy:
+
+![Xem bài nộp Word ngay trên trang chấm](images/99-xem-truoc-bai-nop-word.jpg)
+
+Nút **👁️ Phóng to** mở bài làm trong cửa sổ lớn, dùng phím **← →** để lật nhanh giữa các tệp.
+
 ### 9. Sổ điểm và xuất báo cáo
 
 `Khoá học → 📊 Sổ điểm`
@@ -553,6 +577,39 @@ Bài giảng hiển thị đầy đủ **công thức toán** và **hình minh h
 
 Cuối mỗi bài có nút chuyển sang **bài trước / bài kế tiếp** để học liên mạch.
 
+#### Xem trước tài liệu đính kèm — không cần tải về
+
+Mỗi tệp thầy cô đính kèm đều có nhãn **👁️ Xem trước**. Bấm vào tệp là nội dung mở ra ngay
+trong một cửa sổ lớn — đọc được cả trên máy tính phòng máy lẫn điện thoại, không cần cài
+Word hay Excel:
+
+![Danh sách tệp đính kèm](images/95-xem-truoc-danh-sach-tep.jpg)
+
+| Loại tệp | Xem trước hiển thị |
+|---|---|
+| **Word** `.docx` | Toàn bộ bài giảng: tiêu đề, chữ in đậm/nghiêng/gạch chân, chỉ số trên–dưới, danh sách, bảng, **hình minh hoạ** và liên kết |
+| **Excel** `.xlsx` | Từng trang tính có thẻ chuyển, dữ liệu dạng bảng, ngày tháng đổi sang `dd/mm/yyyy`, số căn phải |
+| **PowerPoint** `.pptx` | Nội dung chữ từng slide, có tiêu đề và các gạch đầu dòng |
+| **PDF** | Mở thẳng trong trang, cuộn và tìm kiếm như bình thường |
+| **Ảnh · Video · Âm thanh** | Xem/phát ngay, video và âm thanh tua được |
+| **OpenDocument** `.odt` `.ods` `.odp` | Nội dung chữ; riêng `.ods` dựng lại thành bảng |
+| **CSV · TXT · SRT · mã nguồn** | Bảng dữ liệu hoặc văn bản có đánh số dòng |
+| **ZIP** | Danh sách các tệp bên trong kèm dung lượng |
+
+![Xem trước tệp Word](images/96-xem-truoc-word.jpg)
+
+- Dùng phím **← →** hoặc hai nút mũi tên ở góc dưới để lật nhanh sang tệp kế tiếp.
+- Phím **Esc** hoặc nút ✕ để đóng.
+- Nút **↗️ Mở tab mới** xem tệp gốc, nút **⬇️ Tải về** lưu vào máy như trước.
+
+Bảng tính Excel hiện đúng từng trang tính:
+
+![Xem trước bảng tính Excel](images/97-xem-truoc-excel.jpg)
+
+Bài trình chiếu hiện nội dung từng slide:
+
+![Xem trước bài trình chiếu](images/98-xem-truoc-powerpoint.jpg)
+
 ### 4. Học bài giảng SCORM
 
 Bài giảng tương tác chạy ngay trong trang. Trạng thái và điểm được **lưu tự động**;
@@ -636,6 +693,7 @@ Toàn bộ giao diện tự co giãn theo màn hình. Bấm ☰ để mở thanh
 - 🖨️ **In trực tiếp**: trang sổ điểm và danh sách có bố cục in riêng (Ctrl + P).
 - 📋 **Sao chép mã ghi danh**: bấm nút *Sao chép mã* ở trang học viên.
 - ⌨️ **Dán ảnh**: Ctrl + V ảnh chụp màn hình thẳng vào ô soạn thảo.
+- 👁️ **Xem trước tệp**: bấm vào tệp đính kèm để đọc ngay; phím **← →** lật tệp, **Esc** đóng.
 
 ### Câu hỏi thường gặp
 
@@ -658,6 +716,17 @@ Mặc định điểm AI chỉ là **gợi ý tham khảo**.
 **Hỏi: Gói SCORM nào dùng được?**
 Mọi gói xuất theo chuẩn **SCORM 1.2** hoặc **SCORM 2004** có tệp `imsmanifest.xml`
 (Articulate Storyline/Rise, iSpring, Adobe Captivate, H5P, Lectora…).
+
+**Hỏi: Học sinh không có Word/Excel trên máy thì đọc học liệu kiểu gì?**
+Không cần cài gì cả. Bấm vào tệp đính kèm là nội dung mở ngay trong trang —
+Word giữ được tiêu đề, bảng và hình minh hoạ; Excel hiện từng trang tính;
+PowerPoint hiện nội dung từng slide; PDF, ảnh, video, âm thanh mở/phát thẳng.
+Việc đọc tệp do máy chủ tự làm bằng PHP, **không gửi tệp ra dịch vụ bên ngoài**.
+
+**Hỏi: Tệp `.doc` (Word đời cũ) có xem trước được không?**
+Chưa. Các định dạng nhị phân đời cũ `.doc` `.xls` `.ppt` chỉ tải về được.
+Hãy mở bằng Word/Excel/PowerPoint rồi **lưu lại dưới dạng `.docx` `.xlsx` `.pptx`**
+và tải lên lại — cả lớp sẽ xem được ngay trên trang.
 
 **Hỏi: Lớp có hai ba chục đầu điểm thì bảng điểm hiển thị có nổi không?**
 Có. Trên màn hình, cột **Học sinh** ghim bên trái và cụm **Tổng · Thang 10 · Xếp loại**

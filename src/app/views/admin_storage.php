@@ -69,7 +69,7 @@
         <table class="data" id="tbl-files">
             <thead><tr><th>Tên tệp</th><th class="center">Loại</th><th class="center">Dung lượng</th>
                 <th>Chủ sở hữu</th><th class="center">Ngày tải lên</th><th class="right"></th></tr></thead>
-            <tbody>
+            <tbody data-preview-group>
             <?php foreach ($biggest as $f): list($ic, $col) = file_icon($f['ext']); ?>
                 <tr>
                     <td><span class="file-ico" style="width:28px;height:28px;font-size:15px;background:<?= e($col) ?>1a;display:inline-grid"><?= $ic ?></span>
@@ -78,7 +78,11 @@
                     <td class="center bold"><?= human_size($f['size']) ?></td>
                     <td class="small muted"><?= e($f['owner_name'] ?: '—') ?></td>
                     <td class="center small"><?= e(fmt_date($f['created_at'])) ?></td>
-                    <td class="right"><a class="btn btn-ghost btn-sm" href="<?= e(media_url($f['id'], true)) ?>">⬇️</a></td>
+                    <td class="right nowrap">
+                        <?php if (Preview::supports($f['ext'])): ?>
+                            <button type="button" class="btn btn-ghost btn-sm" data-preview="<?= (int)$f['id'] ?>" title="Xem trước">👁️</button>
+                        <?php endif; ?>
+                        <a class="btn btn-ghost btn-sm" href="<?= e(media_url($f['id'], true)) ?>" title="Tải về">⬇️</a></td>
                 </tr>
             <?php endforeach; ?>
             <?php if (!$biggest): ?><tr><td colspan="6"><?= empty_state('📁', 'Chưa có tệp nào', '') ?></td></tr><?php endif; ?>

@@ -38,13 +38,16 @@ $last = $subs ? $subs[0] : null;
             <?php if ($attachments): ?>
                 <div class="mt-3">
                     <b class="small">📎 Tài liệu kèm theo</b>
-                    <div class="grid mt-1" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px">
-                        <?php foreach ($attachments as $f): list($ic, $col) = file_icon($f['ext']); ?>
-                            <a class="file-item" href="<?= e(media_url($f['id'], true)) ?>">
+                    <div class="grid mt-1" data-preview-group style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px">
+                        <?php foreach ($attachments as $f): list($ic, $col) = file_icon($f['ext']);
+                            $can = Preview::supports($f['ext']); ?>
+                            <a class="file-item" href="<?= e($can ? url('preview/file', ['f' => $f['id']]) : media_url($f['id'], true)) ?>"
+                               <?= $can ? 'data-preview="' . (int)$f['id'] . '"' : '' ?>>
                                 <span class="file-ico" style="background:<?= e($col) ?>1a"><?= $ic ?></span>
                                 <span class="flex-1">
                                     <span class="file-name"><?= e($f['name']) ?></span>
-                                    <span class="file-meta"><?= human_size($f['size']) ?></span>
+                                    <span class="file-meta"><?= e(strtoupper($f['ext'])) ?> · <?= human_size($f['size']) ?>
+                                        <?= $can ? ' · <span class="text-primary">👁️ Xem trước</span>' : '' ?></span>
                                 </span>
                             </a>
                         <?php endforeach; ?>
@@ -118,12 +121,15 @@ $last = $subs ? $subs[0] : null;
                             <div class="rich-content" style="background:var(--card);padding:14px;border-radius:12px"><?= safe_html($s['content']) ?></div>
                         <?php endif; ?>
                         <?php if (!empty($subFiles[$s['id']])): ?>
-                            <div class="grid mt-2" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px">
-                                <?php foreach ($subFiles[$s['id']] as $f): list($ic, $col) = file_icon($f['ext']); ?>
-                                    <a class="file-item" href="<?= e(media_url($f['id'], true)) ?>">
+                            <div class="grid mt-2" data-preview-group style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px">
+                                <?php foreach ($subFiles[$s['id']] as $f): list($ic, $col) = file_icon($f['ext']);
+                                    $can = Preview::supports($f['ext']); ?>
+                                    <a class="file-item" href="<?= e($can ? url('preview/file', ['f' => $f['id']]) : media_url($f['id'], true)) ?>"
+                                       <?= $can ? 'data-preview="' . (int)$f['id'] . '"' : '' ?>>
                                         <span class="file-ico" style="background:<?= e($col) ?>1a"><?= $ic ?></span>
                                         <span class="flex-1"><span class="file-name"><?= e(str_limit($f['name'], 30)) ?></span>
-                                        <span class="file-meta"><?= human_size($f['size']) ?></span></span>
+                                        <span class="file-meta"><?= human_size($f['size']) ?>
+                                            <?= $can ? ' · <span class="text-primary">👁️</span>' : '' ?></span></span>
                                     </a>
                                 <?php endforeach; ?>
                             </div>

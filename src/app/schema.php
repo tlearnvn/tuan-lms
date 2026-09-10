@@ -504,6 +504,10 @@ function lms_default_settings()
         'mathjax_url'          => 'assets/js/mathjax/tex-mml-chtml.js',  // bản cài kèm, không cần Internet
         'editor_enabled'       => '1',      // thanh công cụ soạn thảo (chèn ảnh, công thức, bảng...)
 
+        // Xem trước tệp học liệu
+        'preview_enabled'      => '1',      // mở tệp đính kèm ngay trên web (Word, Excel, PowerPoint, PDF…)
+        'preview_max_mb'       => '25',     // tệp lớn hơn mức này chỉ cho tải về
+
         // Khác
         'timezone'             => 'Asia/Ho_Chi_Minh',
         'date_format'          => 'd/m/Y',

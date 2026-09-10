@@ -72,33 +72,38 @@
         $main = $item['file_id'] ? Storage::meta($item['file_id']) : null;
         if ($main):
             $ext = strtolower((string)$main['ext']); ?>
-            <?php if ($ext === 'pdf'): ?>
-                <iframe src="<?= e(media_url($main['id'])) ?>" style="width:100%;height:78vh;border:1px solid var(--border);border-radius:var(--radius-sm)"></iframe>
-            <?php elseif (is_image_ext($ext)): ?>
-                <div class="center"><img src="<?= e(media_url($main['id'])) ?>" alt="<?= e($main['name']) ?>" style="max-height:78vh;border-radius:var(--radius-sm)"></div>
-            <?php elseif (is_video_ext($ext)): ?>
-                <video controls preload="metadata" style="width:100%;border-radius:var(--radius-sm);background:#000">
-                    <source src="<?= e(media_url($main['id'])) ?>" type="<?= e($main['mime']) ?>"></video>
-            <?php elseif (is_audio_ext($ext)): ?>
-                <audio controls style="width:100%"><source src="<?= e(media_url($main['id'])) ?>" type="<?= e($main['mime']) ?>"></audio>
-            <?php endif; ?>
+            <div class="flex-between flex-wrap mb-2">
+                <div class="small muted">👁️ Xem trước · <?= e(Preview::kindLabel(Preview::kind($ext))) ?>
+                    · <?= e(strtoupper($ext)) ?> · <?= human_size($main['size']) ?></div>
+                <div class="btn-group">
+                    <a class="btn btn-ghost btn-sm" href="<?= e(url('preview/file', ['f' => $main['id']])) ?>"
+                       target="_blank" rel="noopener">↗️ Mở toàn màn hình</a>
+                    <a class="btn btn-ghost btn-sm" href="<?= e(media_url($main['id'], true)) ?>">⬇️ Tải về</a>
+                </div>
+            </div>
+            <?= Preview::render($main, ['height' => '78vh']) ?>
         <?php endif; ?>
     <?php endif; ?>
 </div>
 
 <?php if ($files): ?>
     <div class="card mb-3">
-        <div class="card-title"><span class="emoji">📎</span> Tài liệu đính kèm (<?= count($files) ?>)</div>
-        <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px">
+        <div class="card-title"><span class="emoji">📎</span> Tài liệu đính kèm (<?= count($files) ?>)
+            <span class="tiny muted" style="font-weight:500">— bấm vào tệp để xem trước ngay tại đây</span></div>
+        <div class="grid" data-preview-group style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px">
             <?php foreach ($files as $f):
-                list($ic, $col) = file_icon($f['ext']); ?>
-                <div class="file-item">
+                list($ic, $col) = file_icon($f['ext']);
+                $can = Preview::supports($f['ext']); ?>
+                <div class="file-item"<?= $can ? ' data-preview="' . (int)$f['id'] . '"' : '' ?>
+                     title="<?= e($can ? 'Xem trước ' . $f['name'] : $f['name']) ?>">
                     <span class="file-ico" style="background:<?= e($col) ?>1a"><?= $ic ?></span>
                     <div class="flex-1">
                         <div class="file-name"><?= e($f['name']) ?></div>
-                        <div class="file-meta"><?= e(strtoupper($f['ext'])) ?> · <?= human_size($f['size']) ?></div>
+                        <div class="file-meta"><?= e(strtoupper($f['ext'])) ?> · <?= human_size($f['size']) ?>
+                            <?= $can ? ' · <span class="text-primary">👁️ Xem trước</span>' : '' ?></div>
                     </div>
-                    <a class="btn btn-ghost btn-sm" href="<?= e(media_url($f['id'], true)) ?>" title="Tải về">⬇️</a>
+                    <a class="btn btn-ghost btn-sm" href="<?= e(media_url($f['id'], true)) ?>" title="Tải về"
+                       onclick="event.stopPropagation()">⬇️</a>
                 </div>
             <?php endforeach; ?>
         </div>

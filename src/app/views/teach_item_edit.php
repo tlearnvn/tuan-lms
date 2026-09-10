@@ -83,7 +83,10 @@ $subTypes = array_filter(array_map('trim', explode(',', (string)$av('submission_
                         <span class="file-ico" style="background:<?= e($col) ?>1a"><?= $ic ?></span>
                         <div class="flex-1"><div class="file-name"><?= e($mainFile['name']) ?></div>
                             <div class="file-meta"><?= human_size($mainFile['size']) ?> · tệp chính hiện tại</div></div>
-                        <a class="btn btn-ghost btn-sm" href="<?= e(media_url($mainFile['id'], true)) ?>">⬇️</a>
+                        <?php if (Preview::supports($mainFile['ext'])): ?>
+                            <button type="button" class="btn btn-ghost btn-sm" data-preview="<?= (int)$mainFile['id'] ?>">👁️ Xem trước</button>
+                        <?php endif; ?>
+                        <a class="btn btn-ghost btn-sm" href="<?= e(media_url($mainFile['id'], true)) ?>" title="Tải về">⬇️</a>
                     </div>
                 <?php endif; ?>
                 <div class="form-group">

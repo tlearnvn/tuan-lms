@@ -24,6 +24,7 @@ thiết kế để **tải thẳng lên hosting chia sẻ (cPanel)** mà không 
 | 🔐 **Đăng ký tài khoản** | Quản trị viên **bật/tắt riêng** đăng ký của giáo viên và của học sinh; tuỳ chọn bắt buộc phê duyệt |
 | 🎓 **Khoá học** | Danh mục, chương, ảnh bìa, màu sắc, mã ghi danh, ghi danh tự do / cần mã / cần duyệt / thủ công, giới hạn sĩ số, giáo viên đồng phụ trách |
 | 📚 **Học liệu** | Trang nội dung, tệp (Word, PDF, PowerPoint, Excel, ZIP…), video (tải lên hoặc YouTube/Vimeo), liên kết ngoài, nhiều tệp đính kèm |
+| 👁️ **Xem trước tệp** | Mở **Word, Excel, PowerPoint, OpenDocument, PDF, ảnh, video, âm thanh, CSV, văn bản, mã nguồn và ZIP** ngay trên web — không cần tải về, không gửi tệp ra dịch vụ ngoài |
 | 🧩 **SCORM** | Nhập gói **SCORM 1.2 và SCORM 2004** (.zip), tự phân tích `imsmanifest.xml`, mục lục nhiều SCO, ghi nhận `lesson_status`, `score.raw`, `suspend_data`, thời gian học; dùng làm học liệu hoặc bài tập tính điểm |
 | 📝 **Bài tập** | Hạn nộp, hạn đóng, cho nộp trễ, nhiều lần nộp, nộp tệp và/hoặc gõ trực tiếp, giới hạn định dạng, chấm điểm + nhận xét |
 | ❓ **Trắc nghiệm** | 5 dạng câu hỏi, giới hạn thời gian, trộn câu/đáp án, nhiều lượt làm, tự động chấm, tự lưu từng câu |
@@ -57,9 +58,13 @@ thiết kế để **tải thẳng lên hosting chia sẻ (cPanel)** mà không 
 <td><b>Làm bài trắc nghiệm</b><br><img src="docs/images/66-hs-lam-trac-nghiem.jpg" alt="Làm trắc nghiệm"></td>
 <td><b>Bảng điểm PDF tiếng Việt</b><br><img src="docs/images/90-xuat-bang-diem-pdf.jpg" alt="Bảng điểm PDF"></td>
 </tr>
+<tr>
+<td><b>Xem trước tệp Word ngay trên web</b><br><img src="docs/images/96-xem-truoc-word.jpg" alt="Xem trước Word"></td>
+<td><b>Xem trước bảng tính Excel</b><br><img src="docs/images/97-xem-truoc-excel.jpg" alt="Xem trước Excel"></td>
+</tr>
 </table>
 
-👉 Xem đầy đủ 60 ảnh minh hoạ trong [Hướng dẫn sử dụng](docs/HUONG-DAN-SU-DUNG.md).
+👉 Xem đầy đủ 65 ảnh minh hoạ trong [Hướng dẫn sử dụng](docs/HUONG-DAN-SU-DUNG.md).
 
 ---
 
@@ -104,6 +109,8 @@ src/                     ← tải toàn bộ nội dung thư mục này lên pu
 │   ├── Storage.php      Kho tệp trong MySQL (chia mảnh 512KB)
 │   ├── Zip.php          Đọc/ghi ZIP bằng PHP thuần
 │   ├── Xlsx.php         Xuất Excel không cần thư viện ngoài
+│   ├── Office.php       Đọc docx/xlsx/pptx/odf bằng PHP thuần (để xem trước)
+│   ├── Preview.php      Dựng khung xem trước cho từng loại tệp
 │   ├── Pdf.php          Xuất PDF nhúng font TrueType (tiếng Việt có dấu)
 │   ├── Scorm.php        Nhập & chạy gói SCORM
 │   ├── Ai.php           Kết nối API AI chấm bài
@@ -113,6 +120,7 @@ src/                     ← tải toàn bộ nội dung thư mục này lên pu
 │   ├── css/app.css      Toàn bộ giao diện
 │   ├── js/app.js        Tương tác chung
 │   ├── js/editor.js     Thanh soạn thảo: chèn ảnh, công thức LaTeX
+│   ├── js/preview.js    Hộp thoại xem trước tệp đính kèm
 │   ├── js/scorm-api.js  Bộ điều hợp SCORM 1.2 / 2004
 │   ├── js/mathjax/      MathJax bản rút gọn (dùng offline)
 │   ├── img/             Hình minh hoạ SVG

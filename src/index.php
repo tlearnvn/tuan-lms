@@ -28,6 +28,7 @@ $map = [
     'admin'     => 'admin',
     'export'    => 'export',
     'upload'    => 'upload',
+    'preview'   => 'preview',
     'ping'      => 'system',
 ];
 

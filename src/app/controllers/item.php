@@ -56,7 +56,10 @@ function item_view()
                       WHERE itf.item_id = :i ORDER BY itf.position, itf.id', ['i' => $item['id']]);
     if ($item['file_id']) {
         $main = Storage::meta($item['file_id']);
-        if ($main) array_unshift($files, $main);
+        // tệp chính có thể đã nằm trong danh sách đính kèm — không liệt kê hai lần
+        $dup = false;
+        foreach ($files as $f) if ((int)$f['id'] === (int)$item['file_id']) { $dup = true; break; }
+        if ($main && !$dup) array_unshift($files, $main);
     }
 
     item_complete_mark($item);

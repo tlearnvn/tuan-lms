@@ -30,7 +30,7 @@
             <?php endif; ?>
 
             <?php if ($files): ?>
-                <div class="mt-3">
+                <div class="mt-3" data-preview-group>
                     <?php foreach ($files as $f):
                         list($ic, $col) = file_icon($f['ext']);
                         $ext = strtolower((string)$f['ext']); ?>
@@ -40,17 +40,12 @@
                                 <div class="file-name"><?= e($f['name']) ?></div>
                                 <div class="file-meta"><?= e(strtoupper($ext)) ?> · <?= human_size($f['size']) ?></div>
                             </div>
+                            <?php if (Preview::supports($ext)): ?>
+                                <button type="button" class="btn btn-ghost btn-sm" data-preview="<?= (int)$f['id'] ?>">👁️ Phóng to</button>
+                            <?php endif; ?>
                             <a class="btn btn-ghost btn-sm" href="<?= e(media_url($f['id'], true)) ?>">⬇️ Tải</a>
                         </div>
-                        <?php if ($ext === 'pdf'): ?>
-                            <iframe src="<?= e(media_url($f['id'])) ?>" style="width:100%;height:66vh;border:1px solid var(--border);border-radius:12px;margin-bottom:14px"></iframe>
-                        <?php elseif (is_image_ext($ext)): ?>
-                            <img src="<?= e(media_url($f['id'])) ?>" alt="" style="max-width:100%;border-radius:12px;margin-bottom:14px">
-                        <?php elseif (is_audio_ext($ext)): ?>
-                            <audio controls style="width:100%;margin-bottom:14px"><source src="<?= e(media_url($f['id'])) ?>"></audio>
-                        <?php elseif (is_video_ext($ext)): ?>
-                            <video controls style="width:100%;border-radius:12px;margin-bottom:14px"><source src="<?= e(media_url($f['id'])) ?>"></video>
-                        <?php endif; ?>
+                        <div class="mb-3"><?= Preview::render($f, ['height' => '66vh']) ?></div>
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>

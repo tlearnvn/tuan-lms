@@ -22,9 +22,11 @@
 window.LMS = window.LMS || {};
 LMS.csrf = <?= json_encode(csrf_token()) ?>;
 LMS.keepalive = true;
-LMS.urls = { ping: <?= json_encode(url('ping')) ?>, theme: <?= json_encode(url('user/theme')) ?>, uploadImage: <?= json_encode(url('upload/image')) ?> };
+LMS.urls = { ping: <?= json_encode(url('ping')) ?>, theme: <?= json_encode(url('user/theme')) ?>,
+             uploadImage: <?= json_encode(url('upload/image')) ?>, preview: <?= json_encode(url('preview/file')) ?> };
 </script>
 <script src="<?= e(asset('js/app.js')) ?>?v=<?= LMS_VERSION ?>"></script>
 <script src="<?= e(asset('js/editor.js')) ?>?v=<?= LMS_VERSION ?>"></script>
+<script src="<?= e(asset('js/preview.js')) ?>?v=<?= LMS_VERSION ?>"></script>
 </body>
 </html>

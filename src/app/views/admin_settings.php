@@ -186,6 +186,24 @@
             </div>
         </div>
 
+        <!-- Xem trước tệp học liệu -->
+        <div class="card mb-3">
+            <div class="card-title"><span class="emoji">👁️</span> Xem trước tệp học liệu</div>
+            <label class="switch mb-3">
+                <input type="checkbox" name="preview_enabled" value="1" <?= Settings::bool('preview_enabled', true) ? 'checked' : '' ?>>
+                <span class="track"></span>
+                <span class="switch-label"><b>Mở tệp đính kèm ngay trên web</b>
+                    <span>Word, Excel, PowerPoint, OpenDocument, PDF, ảnh, video, âm thanh, văn bản, mã nguồn và tệp nén —
+                        học sinh không cần tải về mới xem được</span></span>
+            </label>
+            <div class="form-group">
+                <label>Chỉ xem trước tệp nhỏ hơn (MB)</label>
+                <input type="number" name="preview_max_mb" min="1" max="512" value="<?= (int)Settings::int('preview_max_mb', 25) ?>">
+                <div class="form-hint">Áp dụng cho các định dạng cần máy chủ bóc tách nội dung (Word, Excel, PowerPoint, văn bản, tệp nén).
+                    Tệp lớn hơn mức này chỉ hiện nút tải về. Ảnh, PDF, video và âm thanh không bị giới hạn vì do trình duyệt phát trực tiếp.</div>
+            </div>
+        </div>
+
         <!-- Công thức toán & soạn thảo -->
         <div class="card mb-3">
             <div class="card-title"><span class="emoji">∑</span> Công thức toán &amp; trình soạn thảo</div>

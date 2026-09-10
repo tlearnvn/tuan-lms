@@ -37,6 +37,24 @@
         return xhr;
     };
 
+    /** Gọi GET trả JSON */
+    LMS.get = function (url, cb, errCb) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.onload = function () {
+            var res = null;
+            try { res = JSON.parse(xhr.responseText); } catch (e) { }
+            if (res) cb && cb(res);
+            else errCb ? errCb('Phản hồi không hợp lệ từ máy chủ.') : LMS.toast('danger', 'Phản hồi không hợp lệ từ máy chủ.');
+        };
+        xhr.onerror = function () {
+            errCb ? errCb('Không kết nối được máy chủ.') : LMS.toast('danger', 'Không kết nối được máy chủ.');
+        };
+        xhr.send();
+        return xhr;
+    };
+
     // ------------------------------------------------------ thông báo nổi
     LMS.toast = function (type, msg, timeout) {
         var stack = $('.flash-stack');
@@ -309,15 +327,22 @@
     };
 
     // ------------------------------------------------------ hộp thoại
-    LMS.modal = function (title, bodyHtml, footHtml) {
+    LMS.modal = function (title, bodyHtml, footHtml, cls) {
         var bd = document.createElement('div');
         bd.className = 'modal-backdrop';
-        bd.innerHTML = '<div class="modal"><div class="modal-head"><h3 style="margin:0">' + title + '</h3>'
+        bd.innerHTML = '<div class="modal' + (cls ? ' ' + cls : '') + '"><div class="modal-head"><h3 style="margin:0">' + title + '</h3>'
             + '<button class="icon-btn" type="button" aria-label="Đóng">✕</button></div>'
             + '<div class="modal-body">' + bodyHtml + '</div>'
             + (footHtml ? '<div class="modal-foot">' + footHtml + '</div>' : '') + '</div>';
-        bd.querySelector('.icon-btn').onclick = function () { bd.remove(); };
-        bd.onclick = function (e) { if (e.target === bd) bd.remove(); };
+        function close() {
+            bd.remove();
+            document.removeEventListener('keydown', onKey);
+        }
+        function onKey(e) { if (e.key === 'Escape') close(); }
+        bd.close = close;
+        bd.querySelector('.icon-btn').onclick = close;
+        bd.onclick = function (e) { if (e.target === bd) close(); };
+        document.addEventListener('keydown', onKey);
         document.body.appendChild(bd);
         return bd;
     };

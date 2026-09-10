@@ -3,7 +3,7 @@
  * Khởi động ứng dụng: nạp cấu hình, kết nối MySQL, thiết lập phiên và múi giờ Việt Nam.
  */
 
-define('LMS_VERSION', '1.1.1');
+define('LMS_VERSION', '1.2.0');
 define('LMS_ROOT', dirname(__DIR__));
 define('LMS_APP', __DIR__);
 
@@ -22,6 +22,7 @@ require_once LMS_APP . '/Session.php';
 require_once LMS_APP . '/Auth.php';
 require_once LMS_APP . '/Storage.php';
 require_once LMS_APP . '/Zip.php';
+require_once LMS_APP . '/Preview.php';
 
 // ---------------------------------------------------------------- cấu hình
 $configFile = LMS_ROOT . '/config.php';

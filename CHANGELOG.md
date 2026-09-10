@@ -9,6 +9,46 @@ Ký hiệu: `Thêm mới` · `Thay đổi` · `Sửa lỗi` · `Bỏ đi` · `B�
 
 ---
 
+## [1.2.0] — 10/09/2026
+
+Bản cập nhật thêm **xem trước mọi loại tệp học liệu ngay trên web** — học sinh không phải
+tải tệp về mới đọc được, thầy cô chấm bài Word mà không cần rời trang chấm.
+
+### Thêm mới
+
+- **Xem trước tệp đính kèm** với 12 nhóm định dạng, mở trong hộp thoại lớn ngay tại chỗ:
+  - **Word `.docx`** → dựng lại thành HTML: tiêu đề, in đậm/nghiêng/gạch chân, chỉ số trên–dưới,
+    tô sáng, danh sách nhiều cấp, **bảng**, **hình minh hoạ nhúng trong tài liệu** và liên kết.
+  - **Excel `.xlsx`** → từng trang tính có thẻ chuyển, ô ngày tháng đổi sang `dd/mm/yyyy`,
+    số căn phải; giới hạn 300 hàng × 40 cột cho mỗi trang.
+  - **PowerPoint `.pptx`** → nội dung chữ từng slide kèm tiêu đề và các gạch đầu dòng.
+  - **OpenDocument `.odt` `.ods` `.odp`** → nội dung chữ; riêng `.ods` dựng lại thành bảng.
+  - **PDF · ảnh · video · âm thanh** → mở/phát thẳng trong trang.
+  - **CSV/TSV** → bảng dữ liệu, tự nhận dấu phân cách `,` `;` tab `|`.
+  - **Văn bản, phụ đề, mã nguồn** → có đánh số dòng, tự nhận bảng mã không phải UTF-8.
+  - **ZIP** → danh sách tệp bên trong kèm dung lượng.
+  - Toàn bộ do PHP tự đọc — **không cần thư viện ngoài, không gửi tệp ra dịch vụ nào khác**.
+- Hai lớp mới `app/Office.php` (đọc docx/xlsx/pptx/odf) và `app/Preview.php` (dựng khung xem trước),
+  cùng `assets/js/preview.js` cho hộp thoại.
+- Đường dẫn `index.php?r=preview/file&f=…` mở tệp thành **một trang riêng** — dùng được cả khi
+  trình duyệt tắt JavaScript, và chia sẻ được bằng liên kết.
+- Lật nhanh giữa các tệp trong cùng một danh sách bằng **phím ← →** hoặc hai nút mũi tên;
+  phím **Esc** đóng hộp thoại.
+- Xem trước có mặt ở: học liệu của bài, tài liệu kèm theo đề bài, bài nộp của học sinh,
+  màn hình chấm bài, kho dữ liệu của quản trị viên và trang sửa nội dung của giáo viên.
+- **Trang chấm bài hiển thị thẳng bài làm Word/PDF/ảnh** của học sinh, không phải tải về.
+- Hai công tắc mới trong `Quản trị → Cấu hình chung`: bật/tắt xem trước và
+  đặt dung lượng tối đa còn bóc tách nội dung (mặc định 25 MB).
+
+### Thay đổi
+
+- Hộp thoại (`LMS.modal`) đóng được bằng phím **Esc** và nhận thêm tuỳ chọn lớp CSS.
+- Tệp chính của mục học liệu không còn bị liệt kê hai lần khi cũng nằm trong danh sách đính kèm.
+- Tệp `.doc` `.xls` `.ppt` đời cũ hiện lời nhắc lưu lại dưới dạng `.docx` `.xlsx` `.pptx`
+  thay cho thông báo chung chung.
+
+---
+
 ## [1.1.1] — 10/09/2026
 
 Bản cập nhật xử lý trường hợp **lớp có rất nhiều đầu điểm** — trước đây bảng điểm PDF
@@ -227,6 +267,7 @@ chạy được trên hosting chia sẻ (cPanel) mà không cần Composer, Node
 
 > Có ý tưởng hoặc phát hiện lỗi? Hãy tạo một *Issue* trên GitHub.
 
+[1.2.0]: https://github.com/tlearnvn/tuan-lms/releases/tag/v1.2.0
 [1.1.1]: https://github.com/tlearnvn/tuan-lms/releases/tag/v1.1.1
 [1.1.0]: https://github.com/tlearnvn/tuan-lms/releases/tag/v1.1.0
 [1.0.0]: https://github.com/tlearnvn/tuan-lms/releases/tag/v1.0.0

@@ -260,7 +260,7 @@ function admin_settings()
         $bools = ['allow_student_register', 'allow_teacher_register', 'teacher_need_approval',
                   'student_need_approval', 'maintenance', 'session_keepalive',
                   'landing_show_courses', 'landing_show_stats',
-                  'enable_math', 'math_dollar', 'editor_enabled'];
+                  'enable_math', 'math_dollar', 'editor_enabled', 'preview_enabled'];
         foreach ($bools as $k) Settings::set($k, inp_bool($k));
 
         Settings::set('session_lifetime', max(1800, inp_int('session_lifetime', 43200)));
@@ -268,6 +268,7 @@ function admin_settings()
         Settings::set('max_upload_mb', max(1, inp_int('max_upload_mb', 64)));
         Settings::set('chunk_size_kb', max(64, min(4096, inp_int('chunk_size_kb', 512))));
         Settings::set('items_per_page', max(5, inp_int('items_per_page', 20)));
+        Settings::set('preview_max_mb', max(1, min(512, inp_int('preview_max_mb', 25))));
         Settings::set('grade_scale', inp_float('grade_scale', 10));
 
         $tz = inp('timezone');
