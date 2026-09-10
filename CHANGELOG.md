@@ -9,6 +9,43 @@ Ký hiệu: `Thêm mới` · `Thay đổi` · `Sửa lỗi` · `Bỏ đi` · `B�
 
 ---
 
+## [1.1.1] — 10/09/2026
+
+Bản cập nhật xử lý trường hợp **lớp có rất nhiều đầu điểm** — trước đây bảng điểm PDF
+bị tràn cột ra ngoài trang giấy và sổ điểm trên màn hình khó dò cột.
+
+### Thêm mới
+
+- **Bảng điểm PDF tự chia thành nhiều phần theo chiều ngang** khi số đầu điểm vượt quá
+  bề ngang trang A4 ngang. Mỗi phần ghi rõ *"PHẦN 2/3 — cột điểm 8–14 trên tổng số 21"*
+  và lặp lại cột STT · Họ và tên · Tài khoản; số cột được chia đều cho các phần.
+- Bảng **KẾT QUẢ TỔNG HỢP** riêng ở cuối (Tổng điểm · Thang 10 · Xếp loại) kèm cột mới
+  **Số cột đã có điểm** dạng `18/21`.
+- Bảng **CHÚ THÍCH CÁC CỘT ĐIỂM** trong PDF: số thứ tự, loại, tên đầy đủ, điểm tối đa, hệ số.
+- Sổ điểm trên màn hình: **đánh số từng cột điểm**, bảng **Chú thích cột điểm** bên dưới
+  (bấm vào tên để mở thẳng bài tập / bài trắc nghiệm), dòng nhắc **↔️ cuộn ngang**
+  khi lớp có từ 6 đầu điểm trở lên.
+- **Ghim cụm Tổng · Thang 10 · Xếp loại** ở mép phải bảng điểm — cuộn ngang tới đâu vẫn
+  thấy kết quả cuối cùng của từng em (cột Học sinh vẫn ghim ở mép trái như trước).
+
+### Thay đổi
+
+- Tiêu đề cột điểm trong PDF luôn mang số thứ tự; khi cột đủ rộng thì hiện cả tên đầu điểm.
+- Trên điện thoại, sổ điểm rút gọn tiêu đề cột còn số thứ tự và bỏ ghim cụm cột tổng kết
+  để còn chỗ cuộn xem điểm.
+- Chân trang PDF in trên **mọi trang** kèm số trang dạng `Trang 2/3`
+  (trước đây chỉ in ở trang cuối và không có tổng số trang).
+
+### Sửa lỗi
+
+- Bảng điểm PDF của lớp nhiều hơn khoảng 8 đầu điểm bị **vẽ tràn ra ngoài lề phải** và
+  mất hẳn các cột cuối.
+- Ô ghim che mất màu nền của hàng khi rê chuột trong sổ điểm.
+- Tệp CSV xuất trên PHP 8.4 bị chèn dòng cảnh báo `Deprecated: fputcsv()` khi máy chủ
+  bật hiển thị lỗi.
+
+---
+
 ## [1.1.0] — 10/09/2026
 
 Bản cập nhật tập trung vào **công thức toán học**, **hình minh hoạ trong bài giảng**
@@ -190,5 +227,6 @@ chạy được trên hosting chia sẻ (cPanel) mà không cần Composer, Node
 
 > Có ý tưởng hoặc phát hiện lỗi? Hãy tạo một *Issue* trên GitHub.
 
+[1.1.1]: https://github.com/tlearnvn/tuan-lms/releases/tag/v1.1.1
 [1.1.0]: https://github.com/tlearnvn/tuan-lms/releases/tag/v1.1.0
 [1.0.0]: https://github.com/tlearnvn/tuan-lms/releases/tag/v1.0.0

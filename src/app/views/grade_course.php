@@ -57,21 +57,34 @@ $avg = $valid ? array_sum(array_column($valid, 'score10')) / count($valid) : nul
         <?= empty_state('🙋', 'Lớp chưa có học viên', 'Thêm học viên để bắt đầu ghi nhận điểm.') ?>
     <?php elseif (!$gb['items']): ?>
         <?= empty_state('📋', 'Chưa có cột điểm nào', 'Thêm bài tập hoặc bài trắc nghiệm có tính điểm vào khoá học.') ?>
-    <?php else: ?>
+    <?php else:
+        // Nhiều cột điểm → ghim cụm cột tổng kết bên phải và nhắc người dùng cuộn ngang
+        $wide = count($gb['items']) >= 6;
+        $endC = $wide ? ' col-end' : '';
+        ?>
+        <?php if ($wide): ?>
+            <div class="gb-hint">
+                <span>↔️ Bảng có <b><?= num(count($gb['items'])) ?></b> cột điểm — <b>cuộn ngang</b> để xem hết.
+                    Cột <b>Học sinh</b> và cụm <b>Tổng · Thang 10 · Xếp loại</b> luôn được ghim tại chỗ.</span>
+                <span class="tiny">Mỗi cột được đánh số; xem tên đầy đủ ở bảng <b>Chú thích cột điểm</b> bên dưới.</span>
+            </div>
+        <?php endif; ?>
         <div class="table-wrap table-sticky" style="border:0;border-radius:0;max-height:70vh">
             <table class="data" id="tbl-gb">
                 <thead>
                     <tr>
-                        <th class="col-fix" style="min-width:200px">Học sinh</th>
-                        <?php foreach ($gb['items'] as $it): $m = item_type_meta($it['type']); ?>
-                            <th class="center" style="min-width:88px" title="<?= e($it['title']) ?>">
-                                <?= $m[0] ?><br><span style="font-weight:600"><?= e(str_limit($it['title'], 14, '')) ?></span>
+                        <th class="col-fix">Học sinh</th>
+                        <?php foreach ($gb['items'] as $k => $it): $m = item_type_meta($it['type']); ?>
+                            <th class="center gb-col" style="min-width:92px"
+                                title="<?= e(($k + 1) . '. ' . $it['title'] . ' — ' . $m[1] . ' · tối đa ' . score_fmt($it['max_points']) . ' điểm · hệ số ' . score_fmt((float)$it['weight'] ?: 1)) ?>">
+                                <span class="gb-num"><?= $k + 1 ?></span> <?= $m[0] ?>
+                                <br><span class="gb-tt"><?= e(str_limit($it['title'], 14)) ?></span>
                                 <br><span class="tiny" style="text-transform:none">/<?= score_fmt($it['max_points']) ?><?= (float)$it['weight'] != 1 ? ' ×' . score_fmt($it['weight']) : '' ?></span>
                             </th>
                         <?php endforeach; ?>
-                        <th class="center" style="min-width:96px">Tổng</th>
-                        <th class="center" style="min-width:80px">Thang 10</th>
-                        <th class="center" style="min-width:100px">Xếp loại</th>
+                        <th class="center<?= $endC ?> col-end-3">Tổng</th>
+                        <th class="center<?= $endC ?> col-end-2">Thang 10</th>
+                        <th class="center<?= $endC ?> col-end-1">Xếp loại</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -97,9 +110,9 @@ $avg = $valid ? array_sum(array_column($valid, 'score10')) / count($valid) : nul
                                 <?php endif; ?>
                             </td>
                         <?php endforeach; ?>
-                        <td class="center small"><?= $t['max'] > 0 ? score_fmt($t['got']) . '/' . score_fmt($t['max']) : '—' ?></td>
-                        <td class="center bold" style="font-size:1.02rem"><?= $t['score10'] !== null ? score_fmt($t['score10']) : '—' ?></td>
-                        <td class="center"><?= chip($rank, 'chip-' . $col) ?></td>
+                        <td class="center small<?= $endC ?> col-end-3"><?= $t['max'] > 0 ? score_fmt($t['got']) . '/' . score_fmt($t['max']) : '—' ?></td>
+                        <td class="center bold<?= $endC ?> col-end-2" style="font-size:1.02rem"><?= $t['score10'] !== null ? score_fmt($t['score10']) : '—' ?></td>
+                        <td class="center<?= $endC ?> col-end-1"><?= chip($rank, 'chip-' . $col) ?></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
@@ -107,3 +120,32 @@ $avg = $valid ? array_sum(array_column($valid, 'score10')) / count($valid) : nul
         </div>
     <?php endif; ?>
 </div>
+
+<?php if ($gb['students'] && $gb['items']): ?>
+    <details class="card mt-3" <?= count($gb['items']) >= 6 ? 'open' : '' ?>>
+        <summary class="gb-legend-sum"><span class="emoji">🔢</span> Chú thích cột điểm
+            <span class="tiny">(<?= num(count($gb['items'])) ?> đầu điểm)</span></summary>
+        <div class="table-wrap mt-2">
+            <table class="data">
+                <thead><tr>
+                    <th class="center" style="width:60px">Cột</th>
+                    <th>Tên đầu điểm</th>
+                    <th style="width:170px">Loại</th>
+                    <th class="center" style="width:110px">Điểm tối đa</th>
+                    <th class="center" style="width:90px">Hệ số</th>
+                </tr></thead>
+                <tbody>
+                <?php foreach ($gb['items'] as $k => $it): $m = item_type_meta($it['type']); ?>
+                    <tr>
+                        <td class="center"><span class="gb-num"><?= $k + 1 ?></span></td>
+                        <td><a href="<?= e(url('item/view', ['id' => $it['id']])) ?>"><?= e($it['title']) ?></a></td>
+                        <td><?= $m[0] ?> <?= e($m[1]) ?></td>
+                        <td class="center"><?= score_fmt($it['max_points']) ?></td>
+                        <td class="center"><?= score_fmt((float)$it['weight'] ?: 1) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </details>
+<?php endif; ?>

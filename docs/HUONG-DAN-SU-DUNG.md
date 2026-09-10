@@ -444,10 +444,28 @@ Danh sách toàn bộ bài cần chấm của mọi lớp:
 ![Sổ điểm lớp](images/44-gv-so-diem.jpg)
 
 - Bảng ma trận **học sinh × đầu điểm**: cột đầu tiên cố định, cuộn ngang khi nhiều cột.
-- Mỗi cột hiển thị **thang điểm** và **hệ số** (`/10 ×2`).
+- Mỗi cột hiển thị **số thứ tự**, **thang điểm** và **hệ số** (`/10 ×2`).
 - Ba cột cuối: **Tổng**, **Thang 10**, **Xếp loại** (Xuất sắc · Giỏi · Khá · Trung bình · Chưa đạt).
 - Biểu đồ **phổ điểm lớp** phía trên.
 - Ô tìm kiếm lọc học sinh ngay tại chỗ, không phân biệt dấu tiếng Việt.
+
+#### Lớp có nhiều đầu điểm
+
+Sổ điểm chịu được **số cột điểm không giới hạn**. Từ **6 đầu điểm trở lên**, giao diện tự chuyển
+sang chế độ dành cho bảng rộng:
+
+![Sổ điểm nhiều cột](images/92-so-diem-nhieu-cot.jpg)
+
+- Dòng nhắc **↔️ cuộn ngang** cho biết bảng còn cột phía sau.
+- Cột **Học sinh** ghim bên trái, cụm **Tổng · Thang 10 · Xếp loại** ghim bên phải —
+  kéo ngang tới đâu vẫn thấy tên học sinh và kết quả cuối cùng.
+- Mỗi cột điểm mang **một số thứ tự** để đối chiếu; rê chuột lên tiêu đề cột để xem tên đầy đủ.
+- Trên điện thoại, tiêu đề cột rút gọn còn số thứ tự để xem được nhiều cột hơn.
+
+Bảng **Chú thích cột điểm** ngay dưới sổ điểm cho biết số thứ tự nào ứng với đầu điểm nào
+(bấm vào tên để mở thẳng bài tập / bài trắc nghiệm đó):
+
+![Chú thích cột điểm](images/93-chu-thich-cot-diem.jpg)
 
 #### Thống kê & báo cáo
 
@@ -471,6 +489,20 @@ Gồm: tiến độ trung bình, điểm trung bình lớp, **biểu đồ tròn
 Bảng điểm PDF xuất ra — **tiếng Việt có dấu đầy đủ**:
 
 ![Bảng điểm PDF](images/90-xuat-bang-diem-pdf.jpg)
+
+**Khi lớp có nhiều đầu điểm**, bảng điểm PDF **tự chia thành nhiều phần theo chiều ngang**
+để không có cột nào bị tràn ra khỏi trang giấy:
+
+![Bảng điểm PDF nhiều cột](images/94-bang-diem-pdf-nhieu-cot.jpg)
+
+- Mỗi phần ghi rõ *"PHẦN 2/3 — cột điểm 8–14 trên tổng số 21"* và **lặp lại**
+  cột STT · Họ và tên · Tài khoản để dễ dò theo hàng.
+- Sau các phần điểm thành phần là bảng **KẾT QUẢ TỔNG HỢP** (kèm cột *Số cột đã có điểm*)
+  và bảng **CHÚ THÍCH CÁC CỘT ĐIỂM** liệt kê tên đầy đủ, loại, điểm tối đa, hệ số.
+- Mọi trang đều có chân trang, dòng bản quyền và số trang dạng `Trang 2/3`.
+
+> 💡 Cần xem tất cả đầu điểm trên **một hàng duy nhất**? Hãy xuất **Excel** hoặc **CSV** —
+> hai định dạng này không giới hạn bề ngang.
 
 ### 10. Quản lý học viên và thông báo lớp
 
@@ -626,6 +658,13 @@ Mặc định điểm AI chỉ là **gợi ý tham khảo**.
 **Hỏi: Gói SCORM nào dùng được?**
 Mọi gói xuất theo chuẩn **SCORM 1.2** hoặc **SCORM 2004** có tệp `imsmanifest.xml`
 (Articulate Storyline/Rise, iSpring, Adobe Captivate, H5P, Lectora…).
+
+**Hỏi: Lớp có hai ba chục đầu điểm thì bảng điểm hiển thị có nổi không?**
+Có. Trên màn hình, cột **Học sinh** ghim bên trái và cụm **Tổng · Thang 10 · Xếp loại**
+ghim bên phải, phần điểm ở giữa cuộn ngang; mỗi cột mang một số thứ tự tra được ở bảng
+*Chú thích cột điểm* bên dưới. Khi xuất **PDF**, bảng điểm **tự chia thành nhiều phần
+theo chiều ngang** (mỗi phần lặp lại họ tên) rồi kết thúc bằng bảng tổng hợp và bảng chú thích —
+không có cột nào bị cắt mất. Muốn xem tất cả trên một hàng thì xuất **Excel** hoặc **CSV**.
 
 **Hỏi: Dữ liệu lưu ở đâu, sao lưu thế nào?**
 Tất cả — kể cả tệp học liệu và gói SCORM — nằm trong **cơ sở dữ liệu MySQL**.

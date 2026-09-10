@@ -374,7 +374,7 @@ foreach ($checks as $c) if ($c[3] && !$c[1]) $blocking = true;
         <?php endif; ?>
     <?php endif; ?>
 
-    <p class="center small muted mt-4">Hệ thống LMS · Giờ Việt Nam (GMT+7) · Phiên bản 1.1.0</p>
+    <p class="center small muted mt-4">Hệ thống LMS · Giờ Việt Nam (GMT+7) · Phiên bản 1.1.1</p>
 </div>
 </body>
 </html>

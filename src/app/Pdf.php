@@ -342,6 +342,21 @@ class Pdf
     public function pageNo() { return $this->current + 1; }
     public function pageCount() { return count($this->pages); }
 
+    /**
+     * Chạy hàm vẽ trên **từng trang** đã tạo — dùng cho chân trang, số trang…
+     * Hàm nhận (Pdf $p, int $soTrang, int $tongSoTrang).
+     */
+    public function eachPage($cb)
+    {
+        $keep = $this->current;
+        $total = count($this->pages);
+        for ($i = 0; $i < $total; $i++) {
+            $this->current = $i;
+            $cb($this, $i + 1, $total);
+        }
+        $this->current = $keep;
+    }
+
     private function out($s) { $this->pages[$this->current] .= $s . "\n"; }
 
     private function applyState()

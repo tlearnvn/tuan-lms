@@ -29,7 +29,8 @@ function export_csv($filename, $rows)
     header('Content-Disposition: attachment; filename="' . $filename . '"');
     echo "\xEF\xBB\xBF";
     $out = fopen('php://output', 'w');
-    foreach ($rows as $r) fputcsv($out, $r);
+    // Truyền đủ tham số escape: PHP 8.4 báo Deprecated nếu thiếu, làm hỏng tệp CSV
+    foreach ($rows as $r) fputcsv($out, $r, ',', '"', '\\');
     fclose($out);
     exit;
 }
@@ -84,18 +85,21 @@ function export_pdf_new($title, $subtitle = '', $orientation = 'P')
     return $pdf;
 }
 
+/** Chân trang + số trang, in trên mọi trang của tài liệu */
 function export_pdf_footer($pdf)
 {
     $copyright = Settings::get('copyright');
-    $pdf->setFont('R', 8);
-    $pdf->setTextColor(150, 152, 175);
-    $y = $pdf->pageHeight - 26;
-    $pdf->setDrawColor('#E8E6F5');
-    $pdf->line($pdf->marginLeft, $y - 8, $pdf->pageWidth - $pdf->marginRight, $y - 8);
-    $pdf->text($pdf->marginLeft, $y + 2, $copyright);
-    $t = 'Trang ' . $pdf->pageNo();
-    $pdf->text($pdf->pageWidth - $pdf->marginRight - $pdf->getStringWidth($t), $y + 2, $t);
-    $pdf->setTextColor(30, 30, 46);
+    $pdf->eachPage(function ($p, $no, $total) use ($copyright) {
+        $p->setFont('R', 8);
+        $p->setTextColor(150, 152, 175);
+        $y = $p->pageHeight - 26;
+        $p->setDrawColor('#E8E6F5');
+        $p->line($p->marginLeft, $y - 8, $p->pageWidth - $p->marginRight, $y - 8);
+        $p->text($p->marginLeft, $y + 2, $copyright);
+        $t = 'Trang ' . $no . '/' . $total;
+        $p->text($p->pageWidth - $p->marginRight - $p->getStringWidth($t), $y + 2, $t);
+        $p->setTextColor(30, 30, 46);
+    });
 }
 
 // ------------------------------------------------------------------ sổ điểm
@@ -141,38 +145,145 @@ function export_gradebook()
     }
 
     if ($format === 'pdf') {
+        $items  = $gb['items'];
+        $nItems = count($items);
+
         $pdf = export_pdf_new($title, $subtitle, 'L');
         $pdf->marginTop = 66;
         $pdf->addPage();
 
-        $nCols = count($head);
-        $fixed = [26, 132, 74, 74];
-        $rest = $pdf->contentWidth() - array_sum($fixed) - 60 - 46 - 62;
-        $each = count($gb['items']) > 0 ? max(34, $rest / count($gb['items'])) : 0;
-        $widths = $fixed;
-        foreach ($gb['items'] as $it) $widths[] = $each;
-        $widths[] = 60; $widths[] = 46; $widths[] = 62;
+        $primary = Settings::get('primary_color', '#6C5CE7');
+        $cw      = $pdf->contentWidth();          // A4 ngang ≈ 762pt
+        $idW     = [24, 132, 68, 68];             // STT · Họ và tên · Tài khoản · Lớp/Đơn vị
+        $sumW    = [56, 52, 64];                  // Tổng điểm · Thang 10 · Xếp loại
+        $minCol  = 46;                            // bề rộng nhỏ nhất còn đọc được của một cột điểm
+        $tblOpts = ['headBg' => $primary, 'rowHeight' => 19, 'fontSize' => 8, 'headFontSize' => 7.5];
 
-        $align = ['C', 'L', 'L', 'L'];
-        foreach ($gb['items'] as $it) $align[] = 'C';
-        $align[] = 'C'; $align[] = 'C'; $align[] = 'C';
+        // Đủ chỗ xếp tất cả cột điểm trong một bảng hay phải tách thành nhiều phần?
+        $roomOne = $cw - array_sum($idW) - array_sum($sumW);
+        $oneTable = $nItems === 0 || $roomOne / $nItems >= $minCol;
 
-        $rows = [];
-        foreach ($body as $r) {
-            $row = [];
-            foreach ($r as $ci => $val) {
-                if ($ci >= 4 && $ci < 4 + count($gb['items'])) $val = $val === '' ? '—' : score_fmt($val);
-                elseif ($ci === $nCols - 3) $val = $val === '' ? '—' : score_fmt($val);
-                elseif ($ci === $nCols - 2) $val = $val === null ? '—' : ['v' => score_fmt($val), 'bold' => true];
-                $row[] = $val;
-            }
-            $rows[] = $row;
+        // Dữ liệu đã định dạng, tách sẵn theo từng khối cột
+        $ident = $marks = $summ = $done = [];
+        foreach ($body as $bi => $r) {
+            $ident[] = [$r[0], $r[1], $r[2], $r[3]];
+            $uid = (int)$gb['students'][$bi]['id'];
+            $done[] = $gb['totals'][$uid]['count'] . '/' . $nItems;
+            $line = [];
+            for ($k = 0; $k < $nItems; $k++) $line[] = $r[4 + $k] === '' ? '—' : score_fmt($r[4 + $k]);
+            $marks[] = $line;
+            $tot = $r[4 + $nItems];
+            $s10 = $r[5 + $nItems];
+            $summ[] = [
+                $tot === '' ? '—' : score_fmt($tot),
+                $s10 === null ? '—' : ['v' => score_fmt($s10), 'bold' => true],
+                $r[6 + $nItems],
+            ];
         }
 
-        $pdf->table($head, $rows, $widths, [
-            'align' => $align, 'headBg' => Settings::get('primary_color', '#6C5CE7'),
-            'rowHeight' => 20, 'fontSize' => 8, 'headFontSize' => 7.5,
-        ]);
+        // Tiêu đề cột điểm: luôn có số thứ tự ở đầu để đối chiếu với bảng chú thích
+        $colHead = function ($k) use ($items) {
+            return ($k + 1) . '. ' . $items[$k]['title'] . ' (/' . score_fmt($items[$k]['max_points']) . ')';
+        };
+        $colHeadShort = function ($k) use ($items) {
+            return ($k + 1) . ' /' . score_fmt($items[$k]['max_points']);
+        };
+
+        if ($oneTable) {
+            $colW = $nItems ? $roomOne / $nItems : 0;
+            $h = ['STT', 'Họ và tên', 'Tài khoản', 'Lớp/Đơn vị'];
+            $w = $idW;
+            $a = ['C', 'L', 'L', 'L'];
+            for ($k = 0; $k < $nItems; $k++) {
+                $h[] = $colW >= 92 ? $colHead($k) : $colHeadShort($k);
+                $w[] = $colW; $a[] = 'C';
+            }
+            $h[] = 'Tổng điểm'; $h[] = 'Thang 10'; $h[] = 'Xếp loại';
+            $w = array_merge($w, $sumW);
+            $a[] = 'C'; $a[] = 'C'; $a[] = 'C';
+
+            $rows = [];
+            foreach ($ident as $i => $id) $rows[] = array_merge($id, $marks[$i], $summ[$i]);
+
+            $pdf->table($h, $rows, $w, array_merge($tblOpts, ['align' => $a]));
+        } else {
+            // Quá nhiều đầu điểm cho một trang ngang → cắt thành nhiều phần,
+            // mỗi phần lặp lại cột STT + Họ và tên, cuối cùng là bảng tổng kết.
+            $idW2   = [24, 168, 84];              // STT · Họ và tên · Tài khoản
+            $room   = $cw - array_sum($idW2);
+            $perMax = max(1, (int)floor($room / $minCol));
+            // chia đều số cột cho các phần để phần cuối không bị trống trải
+            $perTbl = (int)ceil($nItems / (int)ceil($nItems / $perMax));
+            $groups = array_chunk(range(0, $nItems - 1), $perTbl);
+            $nGroups = count($groups);
+            $colW   = $room / $perTbl;
+            if ($colW > 92) { $idW2[1] += ($colW - 92) * $perTbl; $colW = 92; }
+
+            foreach ($groups as $gi => $cols) {
+                $first = $cols[0] + 1;
+                $last  = $cols[count($cols) - 1] + 1;
+                $label = $nGroups === 1 ? 'ĐIỂM THÀNH PHẦN'
+                       : 'PHẦN ' . ($gi + 1) . '/' . $nGroups . ' — cột điểm '
+                         . ($first === $last ? $first : $first . '–' . $last) . ' trên tổng số ' . $nItems;
+
+                if ($gi > 0) $pdf->ln(16);
+                $pdf->checkBreak(16 + 19 * 5);     // đừng để tiêu đề phần đứng lẻ cuối trang
+                $pdf->setFont('B', 9.5);
+                $pdf->setTextColor($primary);
+                $pdf->cell(0, 16, $label, 0, 1);
+                $pdf->setTextColor(30, 30, 46);
+
+                $h = ['STT', 'Họ và tên', 'Tài khoản'];
+                $w = $idW2;
+                $a = ['C', 'L', 'L'];
+                foreach ($cols as $k) { $h[] = $colHeadShort($k); $w[] = $colW; $a[] = 'C'; }
+
+                $rows = [];
+                foreach ($ident as $i => $id) {
+                    $row = [$id[0], $id[1], $id[2]];
+                    foreach ($cols as $k) $row[] = $marks[$i][$k];
+                    $rows[] = $row;
+                }
+                $pdf->table($h, $rows, $w, array_merge($tblOpts, ['align' => $a]));
+            }
+
+            // Bảng tổng kết
+            $pdf->ln(16);
+            $pdf->checkBreak(16 + 19 * 5);
+            $pdf->setFont('B', 9.5);
+            $pdf->setTextColor($primary);
+            $pdf->cell(0, 16, 'KẾT QUẢ TỔNG HỢP', 0, 1);
+            $pdf->setTextColor(30, 30, 46);
+
+            $h = ['STT', 'Họ và tên', 'Tài khoản', 'Lớp/Đơn vị', 'Số cột đã có điểm',
+                  'Tổng điểm', 'Thang 10', 'Xếp loại'];
+            $w = [24, 0, 92, 108, 96, 76, 64, 86];
+            $w[1] = $cw - array_sum($w);           // cột họ tên nhận phần còn lại
+            $rows = [];
+            foreach ($ident as $i => $id) {
+                $rows[] = array_merge($id, [$done[$i]], $summ[$i]);
+            }
+            $pdf->table($h, $rows, $w, array_merge($tblOpts,
+                ['align' => ['C', 'L', 'L', 'L', 'C', 'C', 'C', 'C'], 'headFontSize' => 7]));
+        }
+
+        // Chú thích cột điểm — cần thiết khi tiêu đề cột chỉ còn là số thứ tự
+        if ($nItems > 0 && (!$oneTable || $roomOne / $nItems < 92)) {
+            $pdf->ln(16);
+            $pdf->checkBreak(16 + 17 * 5);
+            $pdf->setFont('B', 9.5);
+            $pdf->cell(0, 16, 'CHÚ THÍCH CÁC CỘT ĐIỂM', 0, 1);
+
+            $lg = [];
+            foreach ($items as $k => $it) {
+                $meta = item_type_meta($it['type']);
+                $lg[] = [$k + 1, $meta[1], $it['title'], score_fmt($it['max_points']), score_fmt((float)$it['weight'] ?: 1)];
+            }
+            $lw = [40, 118, 0, 84, 62];
+            $lw[2] = $cw - array_sum($lw);
+            $pdf->table(['Cột', 'Loại', 'Tên đầu điểm', 'Điểm tối đa', 'Hệ số'], $lg, $lw, array_merge($tblOpts,
+                ['align' => ['C', 'L', 'L', 'C', 'C'], 'rowHeight' => 17, 'headFontSize' => 8]));
+        }
 
         // Thống kê nhanh
         $valid = array_filter($gb['totals'], function ($t) { return $t['score10'] !== null; });

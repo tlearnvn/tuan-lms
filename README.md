@@ -29,8 +29,8 @@ thiết kế để **tải thẳng lên hosting chia sẻ (cPanel)** mà không 
 | ❓ **Trắc nghiệm** | 5 dạng câu hỏi, giới hạn thời gian, trộn câu/đáp án, nhiều lượt làm, tự động chấm, tự lưu từng câu |
 | 🤖 **AI chấm bài** | Tuỳ chỉnh **nhà cung cấp, Endpoint URL, API key, model, max_tokens (mặc định 64000), timeout (mặc định 300s), temperature, header phụ, system prompt**; hỗ trợ OpenAI / Anthropic / Gemini / mọi API tương thích OpenAI; đọc được cả **ảnh chụp bài viết tay** |
 | ∑ **LaTeX & hình ảnh** | Công thức toán (MathJax **cài kèm, chạy được khi không có Internet**) trong bài giảng, học liệu, đề bài, câu hỏi, thảo luận. Trình soạn thảo có nút **chèn ảnh (tải lên hoặc dán từ clipboard)**, bảng, video và **hơn 20 mẫu công thức Toán – Lí – Hoá** |
-| 📊 **Sổ điểm & thống kê** | Bảng điểm ma trận có hệ số, quy đổi thang 10, xếp loại, phổ điểm, tiến độ học tập, biểu đồ SVG (không cần thư viện ngoài) |
-| 📤 **Xuất dữ liệu** | **Excel (.xlsx), PDF (tiếng Việt có dấu), CSV** cho bảng điểm, danh sách lớp, tiến độ, kết quả bài tập/trắc nghiệm/SCORM và danh sách người dùng |
+| 📊 **Sổ điểm & thống kê** | Bảng điểm ma trận có hệ số, quy đổi thang 10, xếp loại, phổ điểm, tiến độ học tập, biểu đồ SVG (không cần thư viện ngoài). **Không giới hạn số đầu điểm**: cột được đánh số kèm bảng chú thích, ghim cột họ tên và cụm kết quả khi cuộn ngang |
+| 📤 **Xuất dữ liệu** | **Excel (.xlsx), PDF (tiếng Việt có dấu), CSV** cho bảng điểm, danh sách lớp, tiến độ, kết quả bài tập/trắc nghiệm/SCORM và danh sách người dùng. Bảng điểm PDF **tự chia thành nhiều phần theo chiều ngang** khi lớp có nhiều đầu điểm |
 | 💬 **Tương tác** | Diễn đàn theo lớp, thông báo lớp, thông báo toàn hệ thống, hộp thông báo cá nhân |
 | 🎨 **Tuỳ biến** | Tên website, tên đơn vị, logo, favicon, ảnh trang chủ, màu chủ đạo, **dòng bản quyền chân trang**, thông tin liên hệ, chế độ bảo trì |
 | ⏱️ **Phiên làm việc** | Phiên lưu trong MySQL, mặc định **12 giờ** (chỉnh được), tự động "giữ phiên" để học sinh làm bài dài không bị đăng xuất |
@@ -59,7 +59,7 @@ thiết kế để **tải thẳng lên hosting chia sẻ (cPanel)** mà không 
 </tr>
 </table>
 
-👉 Xem đầy đủ 57 ảnh minh hoạ trong [Hướng dẫn sử dụng](docs/HUONG-DAN-SU-DUNG.md).
+👉 Xem đầy đủ 60 ảnh minh hoạ trong [Hướng dẫn sử dụng](docs/HUONG-DAN-SU-DUNG.md).
 
 ---
 
