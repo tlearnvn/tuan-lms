@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" width="200" height="160" role="img" aria-label="Gói học liệu SCORM">
+  <ellipse cx="100" cy="144" rx="58" ry="9" fill="#E84393" opacity=".14"/>
+  <path d="M46 56 l54 -26 l54 26 v58 l-54 26 l-54 -26z" fill="#F7E3F0"/>
+  <path d="M46 56 l54 26 v58 l-54 -26z" fill="#E84393" opacity=".82"/>
+  <path d="M154 56 l-54 26 v58 l54 -26z" fill="#C0298F" opacity=".85"/>
+  <path d="M46 56 l54 -26 l54 26 l-54 26z" fill="#FD79A8"/>
+  <g transform="translate(100 84)">
+    <circle r="20" fill="#fff" opacity=".92"/>
+    <path d="M-6 -9 l14 9 l-14 9z" fill="#E84393"/>
+  </g>
+</svg>

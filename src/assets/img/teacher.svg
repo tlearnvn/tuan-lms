@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 200" width="260" height="200" role="img" aria-label="Giáo viên giảng bài">
+  <rect x="20" y="18" width="168" height="112" rx="10" fill="#2D3436"/>
+  <rect x="28" y="26" width="152" height="96" rx="6" fill="#0F3B33"/>
+  <path d="M46 52 h74 M46 68 h96 M46 84 h58" stroke="#7FE9C9" stroke-width="5" stroke-linecap="round" opacity=".85"/>
+  <path d="M140 92 l12 12 l22 -26" stroke="#FDCB6E" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="16" y="130" width="176" height="9" rx="4.5" fill="#B2985F"/>
+  <g transform="translate(184 62)">
+    <path d="M6 118 q-6 -62 32 -66 q38 4 32 66 z" fill="#6C5CE7"/>
+    <circle cx="38" cy="30" r="27" fill="#FFCFA6"/>
+    <path d="M9 28 a29 29 0 0 1 58 0 q2 -36 -29 -36 t-29 36" fill="#4A3B2E"/>
+    <circle cx="28" cy="32" r="3.2" fill="#3B2A4A"/><circle cx="49" cy="32" r="3.2" fill="#3B2A4A"/>
+    <path d="M31 43 q7 7 15 0" stroke="#C6544F" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+    <path d="M8 66 q-32 -6 -44 -26" stroke="#FFCFA6" stroke-width="13" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>

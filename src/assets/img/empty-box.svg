@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180" role="img" aria-label="Chưa có dữ liệu">
+  <ellipse cx="120" cy="156" rx="78" ry="12" fill="#6C5CE7" opacity=".12"/>
+  <path d="M56 74 h128 l-10 74 a6 6 0 0 1 -6 5 H72 a6 6 0 0 1 -6 -5 z" fill="#EDEAFF"/>
+  <path d="M46 52 h148 l-8 24 H54 z" fill="#A29BFE"/>
+  <path d="M100 52 h40 v24 h-40 z" fill="#6C5CE7"/>
+  <path d="M104 96 h32" stroke="#B7B0EE" stroke-width="7" stroke-linecap="round"/>
+  <g opacity=".85">
+    <circle cx="70" cy="34" r="6" fill="#FDCB6E"/>
+    <circle cx="176" cy="28" r="8" fill="#55EFC4"/>
+    <circle cx="196" cy="60" r="5" fill="#FF7675"/>
+  </g>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Biểu trưng trường học số">
+  <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#6C5CE7"/><stop offset="1" stop-color="#A29BFE"/></linearGradient></defs>
+  <rect width="64" height="64" rx="18" fill="url(#lg)"/>
+  <path d="M32 16 L52 25 L32 34 L12 25 Z" fill="#fff"/>
+  <path d="M20 29.5 v10 c0 4.4 5.4 8 12 8 s12 -3.6 12 -8 v-10 l-12 5.4 z" fill="#FDCB6E"/>
+  <path d="M52 25 v13" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+  <circle cx="52" cy="40.5" r="3.4" fill="#FF7675"/>
+</svg>

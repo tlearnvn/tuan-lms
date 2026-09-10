@@ -1,0 +1,76 @@
+# ============================================================
+#  Hệ thống LMS – cấu hình Apache cho hosting chia sẻ (cPanel)
+#  Tệp này không bắt buộc; hệ thống vẫn chạy nếu máy chủ bỏ qua.
+# ============================================================
+
+# Trang mặc định
+DirectoryIndex index.php index.html
+
+# ---- Bảo vệ tệp nhạy cảm --------------------------------------------------
+<FilesMatch "^(config\.php|config\.sample\.php|composer\.(json|lock)|\.env|.*\.md|.*\.sql|.*\.log)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# Chặn truy cập trực tiếp vào mã nguồn trong thư mục app/
+RedirectMatch 403 (?i)/app/.*\.(php|inc)$
+
+# ---- Không liệt kê thư mục ------------------------------------------------
+Options -Indexes
+
+# ---- Bảo mật cơ bản -------------------------------------------------------
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ---- Nén và bộ nhớ đệm cho tài nguyên tĩnh --------------------------------
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/javascript application/json image/svg+xml
+</IfModule>
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 7 days"
+    ExpiresByType application/javascript "access plus 7 days"
+    ExpiresByType image/svg+xml "access plus 30 days"
+    ExpiresByType image/png "access plus 30 days"
+    ExpiresByType image/jpeg "access plus 30 days"
+    ExpiresByType font/ttf "access plus 30 days"
+</IfModule>
+
+# ---- Tăng giới hạn cho hosting dùng mod_php -------------------------------
+# (Với PHP-FPM/CGI hãy dùng tệp .user.ini kèm theo)
+<IfModule mod_php.c>
+    php_value upload_max_filesize 64M
+    php_value post_max_size 72M
+    php_value memory_limit 256M
+    php_value max_execution_time 600
+    php_value max_input_time 600
+    php_value max_input_vars 5000
+    php_value session.gc_maxlifetime 43200
+</IfModule>
+<IfModule mod_php7.c>
+    php_value upload_max_filesize 64M
+    php_value post_max_size 72M
+    php_value memory_limit 256M
+    php_value max_execution_time 600
+    php_value max_input_time 600
+    php_value max_input_vars 5000
+    php_value session.gc_maxlifetime 43200
+</IfModule>
+<IfModule mod_php8.c>
+    php_value upload_max_filesize 64M
+    php_value post_max_size 72M
+    php_value memory_limit 256M
+    php_value max_execution_time 600
+    php_value max_input_time 600
+    php_value max_input_vars 5000
+    php_value session.gc_maxlifetime 43200
+</IfModule>

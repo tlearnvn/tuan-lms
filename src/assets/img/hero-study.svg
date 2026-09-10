@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 400" width="520" height="400" role="img" aria-label="Học sinh học trực tuyến">
+  <defs>
+    <linearGradient id="hs-screen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#E8E6FF"/>
+    </linearGradient>
+    <linearGradient id="hs-desk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFD9A0"/><stop offset="1" stop-color="#F0B970"/>
+    </linearGradient>
+    <linearGradient id="hs-shirt" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6C5CE7"/><stop offset="1" stop-color="#A29BFE"/>
+    </linearGradient>
+    <linearGradient id="hs-shirt2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF7675"/><stop offset="1" stop-color="#FDA7A6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- vòng nền -->
+  <circle cx="260" cy="196" r="176" fill="#ffffff" opacity=".13"/>
+  <circle cx="260" cy="196" r="138" fill="#ffffff" opacity=".1"/>
+
+  <!-- biểu tượng bay -->
+  <g opacity=".95">
+    <g transform="translate(58 54)">
+      <rect x="-16" y="-16" width="42" height="42" rx="13" fill="#FDCB6E"/>
+      <path d="M-6 4 l6 6 l12 -14" stroke="#8A5B00" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <g transform="translate(452 96)">
+      <rect x="-16" y="-16" width="42" height="42" rx="13" fill="#55EFC4"/>
+      <path d="M-6 -4 h20 M-6 3 h20 M-6 10 h12" stroke="#046B4F" stroke-width="3.2" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(430 286)">
+      <circle r="21" fill="#74B9FF"/>
+      <path d="M-9 0 a9 9 0 0 1 18 0 a9 9 0 0 1 -18 0 M0 -12 v24 M-12 0 h24" stroke="#0B4C8A" stroke-width="2.4" fill="none"/>
+    </g>
+    <g transform="translate(70 300)">
+      <circle r="19" fill="#FF7675"/>
+      <path d="M-8 6 v-10 a8 8 0 0 1 16 0 v10 z" fill="#fff" opacity=".85"/>
+      <circle cy="-8" r="3" fill="#fff"/>
+    </g>
+  </g>
+
+  <!-- bàn học -->
+  <rect x="96" y="286" width="330" height="16" rx="8" fill="url(#hs-desk)"/>
+  <rect x="126" y="302" width="16" height="58" rx="7" fill="#E0A55E"/>
+  <rect x="380" y="302" width="16" height="58" rx="7" fill="#E0A55E"/>
+
+  <!-- màn hình máy tính -->
+  <g>
+    <rect x="180" y="150" width="176" height="120" rx="12" fill="#3D3A64"/>
+    <rect x="188" y="158" width="160" height="104" rx="8" fill="url(#hs-screen)"/>
+    <rect x="200" y="172" width="70" height="9" rx="4.5" fill="#6C5CE7"/>
+    <rect x="200" y="190" width="120" height="7" rx="3.5" fill="#C9C4F0"/>
+    <rect x="200" y="204" width="98" height="7" rx="3.5" fill="#C9C4F0"/>
+    <rect x="200" y="222" width="52" height="20" rx="10" fill="#00B894"/>
+    <path d="M216 228 l4 5 l9 -10" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="262" y="222" width="52" height="20" rx="10" fill="#FDCB6E"/>
+    <rect x="248" y="270" width="40" height="12" rx="4" fill="#2E2B4F"/>
+    <rect x="222" y="280" width="92" height="8" rx="4" fill="#3D3A64"/>
+  </g>
+
+  <!-- học sinh nữ -->
+  <g transform="translate(140 176)">
+    <path d="M4 110 q-4 -56 30 -60 q34 4 30 60 z" fill="url(#hs-shirt)"/>
+    <circle cx="34" cy="30" r="26" fill="#FFCFA6"/>
+    <path d="M6 30 a28 28 0 0 1 56 0 q0 -34 -28 -34 t-28 34" fill="#3B2A4A"/>
+    <path d="M6 26 q-6 30 4 46 q-14 -4 -12 -30 z" fill="#3B2A4A"/>
+    <path d="M62 26 q6 30 -4 46 q14 -4 12 -30 z" fill="#3B2A4A"/>
+    <circle cx="24" cy="32" r="3" fill="#3B2A4A"/><circle cx="44" cy="32" r="3" fill="#3B2A4A"/>
+    <path d="M27 42 q7 7 14 0" stroke="#C6544F" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    <path d="M60 66 q30 8 34 26" stroke="#FFCFA6" stroke-width="13" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- học sinh nam -->
+  <g transform="translate(330 182)">
+    <path d="M2 104 q-3 -52 30 -56 q33 4 30 56 z" fill="url(#hs-shirt2)"/>
+    <circle cx="32" cy="30" r="25" fill="#F5C395"/>
+    <path d="M6 26 q4 -30 26 -30 t26 30 q-10 -12 -26 -10 t-26 10" fill="#2F2A3F"/>
+    <circle cx="23" cy="31" r="3" fill="#2F2A3F"/><circle cx="42" cy="31" r="3" fill="#2F2A3F"/>
+    <path d="M25 41 q7 6 14 0" stroke="#C6544F" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    <path d="M6 64 q-30 6 -34 24" stroke="#F5C395" stroke-width="13" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- chồng sách -->
+  <g transform="translate(392 246)">
+    <rect x="0" y="26" width="66" height="14" rx="4" fill="#0984E3"/>
+    <rect x="4" y="13" width="60" height="13" rx="4" fill="#00B894"/>
+    <rect x="8" y="0" width="54" height="13" rx="4" fill="#FDCB6E"/>
+  </g>
+
+  <!-- cây cảnh -->
+  <g transform="translate(108 232)">
+    <path d="M18 56 q-16 -22 -4 -40 q10 12 8 40z" fill="#00B894"/>
+    <path d="M18 56 q18 -18 10 -38 q-14 12 -12 38z" fill="#55EFC4"/>
+    <path d="M4 54 h30 l-4 26 h-22z" fill="#E17055"/>
+  </g>
+</svg>

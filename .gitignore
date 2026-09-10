@@ -1,0 +1,16 @@
+# Cấu hình riêng của từng máy chủ (do install.php sinh ra)
+src/config.php
+
+# Gói cài đặt đã đóng
+dist/
+
+# Rác hệ điều hành / trình soạn thảo
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+
+# Nhật ký
+*.log

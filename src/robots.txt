@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /app/
+Disallow: /index.php?r=admin
+Disallow: /index.php?r=teach
+Disallow: /media.php
+Disallow: /scorm.php
+Allow: /
