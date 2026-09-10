@@ -438,6 +438,23 @@ function math_restore($text, $store)
     return strtr($text, $store);
 }
 
+/**
+ * Hiển thị nội dung do người dùng nhập: nhận cả HTML lẫn văn bản thuần,
+ * giữ nguyên công thức LaTeX (kể cả ký tự & trong \begin{cases}...).
+ */
+function rich_text($s)
+{
+    $s = (string)$s;
+    if ($s === '') return '';
+    if (preg_match('/<(p|br|div|ul|ol|li|b|i|u|s|strong|em|table|img|figure|blockquote|pre|code|h[1-6])\b/i', $s)) {
+        return safe_html($s);
+    }
+    $store = [];
+    $t = math_protect($s, $store);
+    $t = nl2br(e($t));
+    return math_restore($t, $store);
+}
+
 /** Văn bản thuần -> HTML (giữ xuống dòng, tự động tạo liên kết) */
 function nl2html($text)
 {

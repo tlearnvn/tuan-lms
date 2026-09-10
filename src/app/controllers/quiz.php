@@ -165,7 +165,12 @@ function quiz_save()
     }
     $qid = inp_int('q');
     $response = inp('v');
-    if (is_array($response)) $response = json_encode(array_values($response));
+    if (is_array($response)) {
+        $response = json_encode(array_values($response));
+    } else {
+        $qtype = DB::val('SELECT type FROM {P}questions WHERE id = :q', ['q' => $qid], '');
+        if ($qtype === 'essay') $response = safe_html($response);
+    }
     DB::q('INSERT INTO {P}answers (attempt_id, question_id, response) VALUES (:a, :q, :r)
            ON DUPLICATE KEY UPDATE response = VALUES(response)',
           ['a' => $attempt['id'], 'q' => $qid, 'r' => (string)$response]);
@@ -186,7 +191,12 @@ function quiz_finish()
     // Ghi nhận toàn bộ câu trả lời gửi kèm
     $posted = isset($_POST['answer']) && is_array($_POST['answer']) ? $_POST['answer'] : [];
     foreach ($posted as $qid => $val) {
-        if (is_array($val)) $val = json_encode(array_values($val));
+        if (is_array($val)) {
+            $val = json_encode(array_values($val));
+        } else {
+            $qtype = DB::val('SELECT type FROM {P}questions WHERE id = :q', ['q' => (int)$qid], '');
+            if ($qtype === 'essay') $val = safe_html($val);
+        }
         DB::q('INSERT INTO {P}answers (attempt_id, question_id, response) VALUES (:a, :q, :r)
                ON DUPLICATE KEY UPDATE response = VALUES(response)',
               ['a' => $attempt['id'], 'q' => (int)$qid, 'r' => (string)$val]);

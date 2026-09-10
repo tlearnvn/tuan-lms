@@ -24,7 +24,7 @@
 </div>
 
 <?php if ($item['summary']): ?>
-    <div class="alert alert-info"><span>💡</span><div><?= nl2html($item['summary']) ?></div></div>
+    <div class="alert alert-info"><span>💡</span><div><?= rich_text($item['summary']) ?></div></div>
 <?php endif; ?>
 
 <div class="card mb-3">

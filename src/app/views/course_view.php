@@ -147,7 +147,7 @@ $color = $course['color'] ?: color_of($course['title']);
                     <?php foreach ($announcements as $a): ?>
                         <div class="timeline-item">
                             <div class="bold small"><?= $a['pinned'] ? '📌 ' : '' ?><?= e($a['title']) ?></div>
-                            <div class="small muted"><?= nl2html(str_limit($a['content'], 200)) ?></div>
+                            <div class="small muted"><?= rich_text(str_limit($a['content'], 200)) ?></div>
                             <div class="timeline-time"><?= e($a['author']) ?> · <?= e(time_ago($a['created_at'])) ?></div>
                         </div>
                     <?php endforeach; ?>

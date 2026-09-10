@@ -20,7 +20,7 @@
                         <button class="btn btn-ghost btn-sm" style="color:var(--danger)" type="submit">🗑️</button>
                     </form>
                 </div>
-                <div class="rich-content"><?= nl2html($a['content']) ?></div>
+                <div class="rich-content"><?= rich_text($a['content']) ?></div>
                 <div class="tiny muted mt-2"><?= e($a['author']) ?> · <?= e(fmt_datetime($a['created_at'])) ?></div>
             </div>
         <?php endforeach; ?>

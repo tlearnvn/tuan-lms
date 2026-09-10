@@ -85,11 +85,11 @@ $letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
                         <?php if ($q['type'] === 'short' || $q['type'] === 'essay'): ?>
                             <div class="card" style="box-shadow:none;background:var(--bg-soft)">
                                 <b class="small">Bài làm của <?= $canManage ? 'học sinh' : 'em' ?>:</b>
-                                <div class="rich-content small mt-1"><?= $resp !== '' ? nl2html($resp) : '<i class="muted">(bỏ trống)</i>' ?></div>
+                                <div class="rich-content small mt-1"><?= $resp !== '' ? rich_text($resp) : '<i class="muted">(bỏ trống)</i>' ?></div>
                             </div>
                             <?php if ($q['answer_key']): ?>
                                 <div class="alert alert-success mt-2"><span>🔑</span><div>
-                                    <b>Đáp án tham khảo:</b> <?= nl2html($q['answer_key']) ?></div></div>
+                                    <b>Đáp án tham khảo:</b> <?= rich_text($q['answer_key']) ?></div></div>
                             <?php endif; ?>
                             <?php if ($canManage && $q['type'] === 'essay'): ?>
                                 <div class="form-row mt-2">
@@ -104,7 +104,7 @@ $letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
                                     </div>
                                 </div>
                             <?php elseif ($a && $a['feedback']): ?>
-                                <div class="alert alert-info mt-2"><span>💬</span><div><?= nl2html($a['feedback']) ?></div></div>
+                                <div class="alert alert-info mt-2"><span>💬</span><div><?= rich_text($a['feedback']) ?></div></div>
                             <?php endif; ?>
 
                         <?php else: ?>
@@ -125,7 +125,7 @@ $letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
                         <?php endif; ?>
 
                         <?php if ($q['feedback']): ?>
-                            <div class="alert alert-warning mt-2"><span>💡</span><div><?= nl2html($q['feedback']) ?></div></div>
+                            <div class="alert alert-warning mt-2"><span>💡</span><div><?= rich_text($q['feedback']) ?></div></div>
                         <?php endif; ?>
                     </div>
                 </div>

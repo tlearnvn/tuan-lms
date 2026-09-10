@@ -186,14 +186,17 @@ $subTypes = array_filter(array_map('trim', explode(',', (string)$av('submission_
                         <?php else: ?>Hãy liên hệ quản trị viên để bật.<?php endif; ?>
                     </div></div>
                 <?php endif; ?>
+                <?php // Bài tập mới: lấy mặc định từ cấu hình hệ thống
+                $aiOn   = $asg ? (bool)$av('ai_enabled') : Settings::bool('ai_enabled');
+                $aiAuto = $asg ? (bool)$av('ai_auto') : Settings::bool('ai_auto_default'); ?>
                 <label class="switch mb-2">
-                    <input type="checkbox" name="ai_enabled" value="1" <?= $av('ai_enabled') ? 'checked' : '' ?>>
+                    <input type="checkbox" name="ai_enabled" value="1" <?= $aiOn ? 'checked' : '' ?>>
                     <span class="track"></span>
                     <span class="switch-label"><b>Cho phép AI chấm bài tập này</b>
                         <span>Giáo viên có nút "Nhờ AI chấm" ở màn hình chấm bài</span></span>
                 </label>
                 <label class="switch mb-2">
-                    <input type="checkbox" name="ai_auto" value="1" <?= $av('ai_auto') ? 'checked' : '' ?>>
+                    <input type="checkbox" name="ai_auto" value="1" <?= $aiAuto ? 'checked' : '' ?>>
                     <span class="track"></span>
                     <span class="switch-label"><b>Tự động chấm ngay khi học sinh nộp</b>
                         <span>Học sinh nhận nhận xét tức thì</span></span>

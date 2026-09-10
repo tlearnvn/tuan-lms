@@ -32,7 +32,7 @@ $last = $subs ? $subs[0] : null;
     <div>
         <div class="card mb-3">
             <div class="card-title"><span class="emoji">📋</span> Yêu cầu của bài tập</div>
-            <?php if ($item['summary']): ?><p class="muted"><?= nl2html($item['summary']) ?></p><?php endif; ?>
+            <?php if ($item['summary']): ?><p class="muted"><?= rich_text($item['summary']) ?></p><?php endif; ?>
             <div class="rich-content"><?= safe_html($asg['instructions'] ?: $item['content']) ?></div>
 
             <?php if ($attachments): ?>

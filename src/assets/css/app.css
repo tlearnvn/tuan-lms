@@ -770,6 +770,11 @@ table.ai-criteria td { padding: 8px 10px; border-bottom: 1px solid var(--border)
 
 @media (max-width: 860px) {
     :root { --header-h: 60px; }
+    /* Mọi lưới hai cột đặt bằng style nội tuyến đều xếp thành một cột trên điện thoại
+       (bỏ qua các lưới đã tự co giãn bằng auto-fill/auto-fit) */
+    .grid[style*="grid-template-columns"]:not([style*="auto-fill"]):not([style*="auto-fit"]) {
+        grid-template-columns: 1fr !important;
+    }
     .sidebar { transform: translateX(-100%); box-shadow: var(--shadow-lg); }
     .sidebar.open { transform: translateX(0); }
     .main { margin-left: 0; }
