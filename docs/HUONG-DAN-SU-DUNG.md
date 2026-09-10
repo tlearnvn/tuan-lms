@@ -109,7 +109,9 @@ nhận xét của giáo viên, bài làm của học sinh và diễn đàn.
 2. Tải lên tệp `.zip` (phải chứa `imsmanifest.xml`). Hỗ trợ **SCORM 1.2 và SCORM 2004**.
 3. Hệ thống tự giải nén, lưu vào CSDL, xác định tệp khởi chạy và mục lục các SCO.
 4. Học sinh học trực tiếp trong trang; tiến độ, trạng thái hoàn thành và điểm được ghi tự động.
-5. `📊 Kết quả lớp` xem chi tiết từng học sinh, xuất Excel.
+5. Ô **🏅 Tính điểm vào sổ điểm**: bật khi dùng gói SCORM làm **bài tập chấm điểm**
+   (điểm SCORM tự quy đổi theo thang điểm và hệ số của mục), tắt nếu chỉ là học liệu tham khảo.
+6. `📊 Kết quả lớp` xem chi tiết từng học sinh, xuất Excel.
 
 ### 5. Bài tập và chấm bài 📝
 

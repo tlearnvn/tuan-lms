@@ -280,7 +280,7 @@ function teach_item_edit()
             'visible'    => inp_bool('visible'),
             'open_at'    => inp('open_at') ? str_replace('T', ' ', inp('open_at')) . ':00' : null,
             'close_at'   => inp('close_at') ? str_replace('T', ' ', inp('close_at')) . ':00' : null,
-            'graded'     => in_array($type, ['assignment', 'quiz', 'scorm'], true) ? 1 : inp_bool('graded'),
+            'graded'     => in_array($type, ['assignment', 'quiz'], true) ? 1 : inp_bool('graded'),
             'max_points' => inp_float('max_points', 10),
             'weight'     => inp_float('weight', 1),
             'updated_at' => now(),

@@ -307,9 +307,13 @@ $subTypes = array_filter(array_map('trim', explode(',', (string)$av('submission_
                         <input type="datetime-local" name="close_at" value="<?= e($dt($v('close_at'))) ?>">
                     </div>
                 </div>
-                <div class="check-row tp tp-page tp-file tp-video tp-link tp-forum">
-                    <input type="checkbox" id="graded" name="graded" value="1" <?= $v('graded') ? 'checked' : '' ?>>
+                <div class="check-row tp tp-page tp-file tp-video tp-link tp-forum tp-scorm">
+                    <input type="checkbox" id="graded" name="graded" value="1"
+                        <?= ($item ? $v('graded') : ($type === 'scorm')) ? 'checked' : '' ?>>
                     <label for="graded">🏅 Tính điểm vào sổ điểm</label>
+                </div>
+                <div class="form-hint tp tp-scorm" style="margin:-6px 0 12px">
+                    Bật khi dùng gói SCORM làm <b>bài tập chấm điểm</b>; tắt nếu chỉ là học liệu tham khảo.
                 </div>
                 <div class="form-row">
                     <div class="form-group">

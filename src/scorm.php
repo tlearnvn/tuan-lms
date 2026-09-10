@@ -14,6 +14,15 @@ Auth::requireLogin();
 $pathInfo = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '';
 if ($pathInfo === '' && isset($_SERVER['ORIG_PATH_INFO'])) $pathInfo = $_SERVER['ORIG_PATH_INFO'];
 
+// Dự phòng cho máy chủ không thiết lập PATH_INFO: đọc trực tiếp từ địa chỉ yêu cầu
+if ($pathInfo === '' && !empty($_SERVER['REQUEST_URI'])) {
+    $uri = $_SERVER['REQUEST_URI'];
+    $q = strpos($uri, '?');
+    if ($q !== false) $uri = substr($uri, 0, $q);
+    $pos = stripos($uri, 'scorm.php/');
+    if ($pos !== false) $pathInfo = substr($uri, $pos + strlen('scorm.php'));
+}
+
 $pkgId = 0;
 $path = '';
 
